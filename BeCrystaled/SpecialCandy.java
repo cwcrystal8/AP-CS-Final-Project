@@ -22,5 +22,8 @@ public abstract class SpecialCandy extends Candy{
 	return getScoreWorth() - other.getScoreWorth();
     }
 
+    public boolean equals(Candy other){
+	return type == other.getType();
+    }
     
 }
