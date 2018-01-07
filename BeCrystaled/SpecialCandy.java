@@ -18,4 +18,9 @@ public abstract class SpecialCandy extends Candy{
 	return scoreWorth; //accessor method for scoreWorth
     }
 
+    public int compareTo(Candy other){
+	return getScoreWorth() - other.getScoreWorth();
+    }
+
+    
 }
