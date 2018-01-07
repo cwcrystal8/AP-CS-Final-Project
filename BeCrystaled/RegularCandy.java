@@ -23,17 +23,23 @@ public class RegularCandy extends Candy{
 	return type == other.getType(); //returns true if the types are the same
     }
 
+    public int getScoreWorth(){
+	return 30; //each regular Candy is worth 30 points
+    }
+
     public static void main(String[] args){
 	//Test for random constructor
 	RegularCandy a = new RegularCandy();
 	System.out.println("a: " + a.getType());
-
+	System.out.println(a.getScoreWorth());
+	    
 	//Test for specific constructor
 	for(int i = 0; i < 5; i++){
 	    RegularCandy b = new RegularCandy(i);
 	    System.out.println("b: " + b.getType()); //Test for getType()
 	    System.out.println(a.equals(b)); //Test for equals(Candy other)
 	    System.out.println(b.equals(a)); //Test to check if reverse gives the same result, should match the output of the previous line of code
+	    System.out.println(b.getScoreWorth()); //Test for getScoreWorth() method, should return 30
 	}
     }
     
