@@ -13,20 +13,23 @@ Completed:
   * Created separate branch for the GUI, started basic outline
   * Finished project prototype
   * Researched GUI tables
+  * Wrote Candy, RegularCandy, and SpecialCandy class
+  * Tested Candy and RegularCandy
 ~~~~~~~
 ~~~~~~~
 In Progress:
  * Writing Window.java for the GUI
  * Researching ActionListener interface
+ * Testing SpecialCandy class
 ~~~~~~~
 ~~~~~~~
 Pending:
- * Writing and testing Candy class (and all subclasses)
+ * Writing SpecialCandy subclasses
  * Potential additional features
 ~~~~~~~
 ~~~~~~~
 Notes:
-We are in the process of making a GUI interface, and will start writing the Candy class within the next week.
+We are in the process of making a GUI interface, and will finish the Candy class within the next few days.
 
 ### 12/14
 Completed:
