@@ -27,15 +27,22 @@ public class Window extends JFrame implements ActionListener{
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		pane = this.getContentPane();
-		pane.setLayout(new GridLayout(width,length));
+		pane.setLayout(new GridLayout(width,length+1));
         
-		grid = new JButton[width][length];
+		grid = new JButton[width][length+1];
 		
-		for(int i = 0; i < length; i++){ 
-            	for(int j=0; j < width; j++){
+		for(int i = 0; i < length + 1; i++){ 
+            		for(int j = 0; j < width; j++){
 		    		grid[j][i]=new JButton("");   
-		    		this.add(grid[j][i]);
-		    	}
+		    		this.add(grid[j][i]);			
+				if (i == length + 1){
+					this.add(new JLabel());
+				}
+			}		
+			if(i == 0){
+				grid[0][length] = new JButton("Restart");
+				this.add(grid[0][length]);
+			}
 		}
 		
 	}
@@ -53,6 +60,7 @@ public class Window extends JFrame implements ActionListener{
 	}
 
 	private char[][] hasConsectutive(String type){
+		return new char[1][1];
 	}
 	
 	private void updateBoard(){
@@ -65,18 +73,22 @@ public class Window extends JFrame implements ActionListener{
 	}
 
 	public boolean isLegalSwap(){
+		return true;	
 	}
     	
 	private void swap(){
 	}
 
 	private boolean hasCombination(){
+		return true;
 	}
 	
 	private boolean hasCombination(String type){
+		return true;
 	}
 
 	private int[] findCombination(String type){
+		return new int[1];
 	}
 	
 	public void storeInfo(ActionEvent e){
