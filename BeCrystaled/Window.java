@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Window extends JFrame implements ActionListener{
+	//------INSTANCE VARIABLES------
 	private Container pane;
 	private JButton[][] grid;
 	private Candy[][] board;
@@ -15,7 +16,9 @@ public class Window extends JFrame implements ActionListener{
 	private boolean hasSelectedOther;
 	private int[] previouslySelectedInfo;
 
-	//Constructor to set up Window with a grid with each cell being buttons
+	/*-------------------CONSTRUCTOR-------------------
+	sets up Window with a grid with each cell being buttons
+	*/
 	public Window(int width, int length){
 		this.setTitle("BeCrystaled");
 		this.setSize(1000,1000);
@@ -37,7 +40,7 @@ public class Window extends JFrame implements ActionListener{
 		
 	}
 
-	
+	//-----------------METHODS-----------------
 	public void actionPerformed(ActionEvent e){
 	}
 	
