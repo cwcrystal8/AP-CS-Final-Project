@@ -15,6 +15,7 @@ public class Window extends JFrame implements ActionListener{
 	private boolean hasSelectedOther;
 	private int[] previouslySelectedInfo;
 
+	//Constructor to set up Window with a grid with each cell being buttons
 	public Window(int width, int length){
 		this.setTitle("BeCrystaled");
 		this.setSize(1000,1000);
@@ -27,9 +28,8 @@ public class Window extends JFrame implements ActionListener{
         
 		grid = new JButton[width][length];
 		
-		
 		for(int i = 0; i < length; i++){ 
-            		for(int j=0; j < width; j++){
+            	for(int j=0; j < width; j++){
 		    		grid[j][i]=new JButton("");   
 		    		this.add(grid[j][i]);
 		    	}
@@ -37,15 +37,16 @@ public class Window extends JFrame implements ActionListener{
 		
 	}
 
+	
 	public void actionPerformed(ActionEvent e){
 	}
 	
 	private int getScore(){
-		return score;
+		return score; //Accessor method for score
 	}
 
 	private int getMoves(){
-		return numOfMoves;
+		return numOfMoves; //Accessor method for number of moves
 	}
 
 	private char[][] hasConsectutive(String type){
@@ -68,10 +69,22 @@ public class Window extends JFrame implements ActionListener{
 
 	private boolean hasCombination(){
 	}
+	
+	private boolean hasCombination(String type){
+	}
 
+	private int[] findCombination(String type){
+	}
+	
+	public void storeInfo(ActionEvent e){
+	}
+	
+	
+	
     	public static void main (String[] args) {
     		new Window(9,9);
 	}
+    	
 	//github in terminal was not working
 }
 
