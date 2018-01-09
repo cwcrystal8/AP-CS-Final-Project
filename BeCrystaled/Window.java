@@ -16,9 +16,9 @@ public class Window extends JFrame implements ActionListener{
 	private boolean hasSelectedOther;
 	private int[] previouslySelectedInfo;
 
-	/*-------------------CONSTRUCTOR-------------------
+	/*---------------------CONSTRUCTOR---------------------
 	sets up Window with a grid with each cell being buttons
-	*/
+	-----------------------------------------------------*/
 	public Window(int width, int length){
 		this.setTitle("BeCrystaled");
 		this.setSize(1000,1000);
