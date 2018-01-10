@@ -74,26 +74,26 @@ public class Window extends JFrame implements ActionListener{
 	for(int i = 0; i < row; i++){ 
 	    for(int j = 0; j < col; j++){
 	    		if (i == 0) {
-	    			this.add(new JLabel(""));
+	    			this.add(new JLabel(""));//top border
 	    		}
 	    		else if(i == row-2 && j == col-2){
-				    grid[1][col-2] = new JButton("Restart");
+				    grid[1][col-2] = new JButton("Restart");//position restart button in bottom right
 				    this.add(grid[1][col-2]);
 			}
 	    		else if(i == 1 && j == col-3){
-				    this.add(new JLabel("Score:"));
+				    this.add(new JLabel("Score:"));//position Score label in top right
 			}
 	    		else if (j == 0) {
-	    			this.add(new JLabel(""));
+	    			this.add(new JLabel(""));//left border
 	    		}
 	    		else if (j == col-1 || j == col-2 || j ==col-3 || j ==col-4) {
-	    			this.add(new JLabel(""));
+	    			this.add(new JLabel(""));//right border
 	    		}
 	    		else if (i == row-1){
-				    this.add(new JLabel(""));
+				    this.add(new JLabel(""));//bottom border
 			}
 			else {
-			    this.add(grid[i][j]);
+			    this.add(grid[i][j]);//fill in buttons to grid
 			}
 	    }		
 	}
