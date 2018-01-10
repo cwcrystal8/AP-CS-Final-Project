@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
 
 public class Window extends JFrame implements ActionListener{
     //------INSTANCE VARIABLES------
@@ -25,7 +26,8 @@ public class Window extends JFrame implements ActionListener{
 	this.setLocation(100,100);
 	this.setVisible(true);
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
+	//	this.setResizable(false);
+	
 	pane = this.getContentPane();
 	pane.setLayout(new GridLayout(row,col+1));
 
@@ -33,6 +35,20 @@ public class Window extends JFrame implements ActionListener{
 	//Making initial Candy setup
 	grid = new JButton[row][col+1];
 	board = new Candy[row][col];
+	/*	Color[] colors = {new Color(202,236,246),
+			  new Color(202,246,215),
+			  new Color(239,246,202),
+			  new Color(243,201,225),
+			  new Color(199,184,240)};*/
+	String[] pics = {"marshmallow.jpg","jellybean.png","gumdrop.jpg","jollyrancher.jpg","skittle.png"};
+	ArrayList<String> types = new ArrayList<String>();
+	types.add("Marshmallow");
+	types.add("JellyBean");
+	types.add("GumDrop");
+	types.add("JollyRancher");
+	types.add("Skittle");
+
+	
 
 	for (int i = 0; i < row; i++){
 	    for (int j = 0; j < col; j++){
@@ -42,7 +58,12 @@ public class Window extends JFrame implements ActionListener{
 
 	for (int i = 0; i < row; i++){
 	    for (int j = 0; j < col; j++){
-		grid[i][j] = new JButton(board[i][j].getType());
+		String candy = board[i][j].getType();
+		int color = types.indexOf(candy);
+		JButton btn = new JButton(new ImageIcon(pics[color]));
+		//	btn.setBackground(colors[color]);
+		btn.setOpaque(true);
+		grid[i][j] = btn;
 	    }
 	}
 
