@@ -24,7 +24,6 @@ public class Window extends JFrame implements ActionListener{
 	this.setTitle("BeCrystaled");
 	this.setSize(1000,1000);
 	this.setLocation(100,100);
-	this.setVisible(true);
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	//	this.setResizable(false);
 	
@@ -84,6 +83,8 @@ public class Window extends JFrame implements ActionListener{
 		}
 	    }		
 	}
+
+	this.setVisible(true);
 
 	
 		
