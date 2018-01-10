@@ -28,9 +28,27 @@ public class Window extends JFrame implements ActionListener{
 		
 	pane = this.getContentPane();
 	pane.setLayout(new GridLayout(row,col+1));
-        
+
+
+	//Making initial Candy setup
 	grid = new JButton[row][col+1];
-		
+	board = new Candy[row][col];
+
+	for (int i = 0; i < row; i++){
+	    for (int j = 0; j < col; j++){
+		board[i][j] = new RegularCandy();
+	    }
+	}
+
+	for (int i = 0; i < row; i++){
+	    for (int j = 0; j < col; j++){
+		grid[i][j] = new JButton(board[i][j].getType());
+	    }
+	}
+
+
+
+	//Adding from grid to GUI
 	for(int i = 0; i < row; i++){ 
 	    for(int j = 0; j < col + 1; j++){
 		if(i == 0 && j == col){
@@ -41,7 +59,6 @@ public class Window extends JFrame implements ActionListener{
 		    this.add(new JButton("Filler"));
 		}
 		else {
-		    grid[i][j]=new JButton("");   
 		    this.add(grid[i][j]);
 		}
 	    }		
