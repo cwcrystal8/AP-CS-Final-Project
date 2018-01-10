@@ -27,6 +27,8 @@ public class Window extends JFrame implements ActionListener{
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	//	this.setResizable(false);
 	
+	
+	
 	pane = this.getContentPane();
 	pane.setLayout(new GridLayout(row,col+1));
 
@@ -70,17 +72,29 @@ public class Window extends JFrame implements ActionListener{
 
 	//Adding from grid to GUI
 	for(int i = 0; i < row; i++){ 
-	    for(int j = 0; j < col + 1; j++){
-		if(i == 0 && j == col){
-		    grid[0][col] = new JButton("Restart");
-		    this.add(grid[0][col]);
-		}
-		else if (j == col){
-		    this.add(new JButton("Filler"));
-		}
-		else {
-		    this.add(grid[i][j]);
-		}
+	    for(int j = 0; j < col; j++){
+	    		if (i == 0) {
+	    			this.add(new JLabel(""));
+	    		}
+	    		else if(i == row-2 && j == col-2){
+				    grid[1][col-2] = new JButton("Restart");
+				    this.add(grid[1][col-2]);
+			}
+	    		else if(i == 1 && j == col-3){
+				    this.add(new JLabel("Score:"));
+			}
+	    		else if (j == 0) {
+	    			this.add(new JLabel(""));
+	    		}
+	    		else if (j == col-1 || j == col-2 || j ==col-3 || j ==col-4) {
+	    			this.add(new JLabel(""));
+	    		}
+	    		else if (i == row-1){
+				    this.add(new JLabel(""));
+			}
+			else {
+			    this.add(grid[i][j]);
+			}
 	    }		
 	}
 
@@ -140,7 +154,7 @@ public class Window extends JFrame implements ActionListener{
 	
 	
     public static void main (String[] args) {
-	new Window(9,9);
+	new Window(11,14);
     }
     	
     //github in terminal was not working
