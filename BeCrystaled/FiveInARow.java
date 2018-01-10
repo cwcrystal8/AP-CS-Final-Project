@@ -1,7 +1,10 @@
 public class FiveInARow extends SpecialCandy{
     private String candyType;
 
-    public FiveInARow{
+    public FiveInARow(String canTyp){
+	candyType = canType;
+	setType("FiveInARow");
+	setScoreWorth(500);
     }
 
     
