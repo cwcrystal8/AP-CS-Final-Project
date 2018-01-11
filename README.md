@@ -6,6 +6,27 @@ TBD
 
 ## Development Log
 
+## 01/10
+Completed:
+ * Finished writing and testing all Candy subclasses
+ * Finished researching importing images in GUI
+ * Incorporated images into GUI
+ * Added a restart button, and a label to show the score
+~~~~~~~
+~~~~~~~
+In Progress:
+ * Writing Window.java for the GUI
+ * Researching ActionListener interface
+~~~~~~~
+~~~~~~~
+Pending:
+ * Potential additional features (e.g. animations)
+~~~~~~~
+~~~~~~~
+Notes:
+We got our GUI to work, and completed all 7 classes in the Candy hierarchy! Everything we've written so far has been tested, and we have a basic outline of our actionPerformed(ActionEvent e) method already prepared, to make finishing the GUI that much easier. We also learned about the wonders of "git pull --rebase" after our branches failed to merge successfully.
+
+
 ## 01/07
 Completed:
   * Tested branch creation, commits, and merging
