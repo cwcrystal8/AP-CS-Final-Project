@@ -73,6 +73,7 @@ public class Window extends JFrame implements ActionListener{
 	//Adding from grid to GUI
 	for(int i = 0; i < row; i++){ 
 	    for(int j = 0; j < col; j++){
+	    		
 	    		if (i == 0) {
 	    			this.add(new JLabel(""));//top border
 	    		}
@@ -82,6 +83,9 @@ public class Window extends JFrame implements ActionListener{
 			}
 	    		else if(i == 1 && j == col-3){
 				    this.add(new JLabel("Score:"));//position Score label in top right
+			}
+	    		else if(i == 1 && j == col-2){
+				    this.add(new JLabel("10"));//position Score count in top right
 			}
 	    		else if (j == 0) {
 	    			this.add(new JLabel(""));//left border
