@@ -72,9 +72,14 @@ public class Window extends JFrame implements ActionListener{
 
 	//Adding from grid to GUI
 	for(int i = 0; i < row; i++){ 
-	    for(int j = 0; j < col; j++){
-	    		if (i == 0) {
+	    for(int j = 0; j < col; j++){	    		
+			if (i == 0) {
+				if(j == col/2){
+					this.add(new JLabel("BeCrystaled"));
+				}
+				else{
 	    			this.add(new JLabel(""));//top border
+				}
 	    		}
 	    		else if(i == row-2 && j == col-2){
 				    grid[1][col-2] = new JButton("Restart");//position restart button in bottom right
