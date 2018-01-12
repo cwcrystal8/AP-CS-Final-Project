@@ -72,20 +72,24 @@ public class Window extends JFrame implements ActionListener{
 
 	//Adding from grid to GUI
 	for(int i = 0; i < row; i++){ 
-	    for(int j = 0; j < col; j++){
-	    		
-	    		if (i == 0) {
-	    			this.add(new JLabel(""));//top border
+	    for(int j = 0; j < col; j++){	
+			if (i == 0) {
+				if(j == col/2){
+					this.add(new JLabel("BeCrystaled"));//title
+				}
+				else{
+	    				this.add(new JLabel(""));//top border
+				}
 	    		}
 	    		else if(i == row-2 && j == col-2){
-				    grid[1][col-2] = new JButton("Restart");//position restart button in bottom right
-				    this.add(grid[1][col-2]);
+	    			grid[1][col-2] = new JButton("Restart");//position restart button in bottom right
+				this.add(grid[1][col-2]);
 			}
 	    		else if(i == 1 && j == col-3){
-				    this.add(new JLabel("Score:"));//position Score label in top right
+				this.add(new JLabel("Score:"));//position Score label in top right
 			}
 	    		else if(i == 1 && j == col-2){
-				    this.add(new JLabel("10"));//position Score count in top right
+				this.add(new JLabel("10"));//position Score count in top right
 			}
 	    		else if (j == 0) {
 	    			this.add(new JLabel(""));//left border
@@ -94,7 +98,7 @@ public class Window extends JFrame implements ActionListener{
 	    			this.add(new JLabel(""));//right border
 	    		}
 	    		else if (i == row-1){
-				    this.add(new JLabel(""));//bottom border
+				this.add(new JLabel(""));//bottom border
 			}
 			else {
 			    this.add(grid[i][j]);//fill in buttons to grid
@@ -113,15 +117,15 @@ public class Window extends JFrame implements ActionListener{
     }
 	
     private int getScore(){
-	return score; //Accessor method for score
+    		return score; //Accessor method for score
     }
 
     private int getMoves(){
-	return numOfMoves; //Accessor method for number of moves
+    		return numOfMoves; //Accessor method for number of moves
     }
 
     private char[][] hasConsectutive(String type){
-	return new char[1][1];
+    		return new char[1][1];
     }
 	
     private void updateBoard(){
@@ -134,22 +138,22 @@ public class Window extends JFrame implements ActionListener{
     }
 
     public boolean isLegalSwap(){
-	return true;	
+    		return true;	
     }
     	
     private void swap(){
     }
 
     private boolean hasCombination(){
-	return true;
+    		return true;
     }
 	
     private boolean hasCombination(String type){
-	return true;
+    		return true;
     }
 
     private int[] findCombination(String type){
-	return new int[1];
+    		return new int[1];
     }
 	
     public void storeInfo(ActionEvent e){
@@ -158,9 +162,8 @@ public class Window extends JFrame implements ActionListener{
 	
 	
     public static void main (String[] args) {
-	new Window(11,14);
+    		new Window(11,14);
     }
     	
-    //github in terminal was not working
 }
 
