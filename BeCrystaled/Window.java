@@ -82,6 +82,7 @@ public class Window extends JFrame implements ActionListener{
 		JButton btn = new JButton(new ImageIcon(pics[color]));
 		btn.setBackground(colors[color]);
 		btn.setOpaque(true);
+		btn.addActionListener(this);
 		grid[i][j] = btn;
 	    }
 	}
@@ -109,6 +110,7 @@ public class Window extends JFrame implements ActionListener{
 
 	JPanel subpane = new JPanel(new GridLayout(1,3,50,50));
 	JButton restart = new JButton("Restart");
+	restart.addActionListener(this);
 	
 	restart.setFont(new Font("Times New Roman", Font.PLAIN, 60));
 	numMoves.setFont(new Font("Times New Roman", Font.PLAIN, 60));
@@ -128,6 +130,8 @@ public class Window extends JFrame implements ActionListener{
 
     //-----------------METHODS-----------------
     public void actionPerformed(ActionEvent e){
+	String s = e.getActionCommand();
+	System.out.println("A button has been pressed");
     }
 	
     private int getScore(){
@@ -150,6 +154,7 @@ public class Window extends JFrame implements ActionListener{
 		JButton btn = new JButton(new ImageIcon(pics[color]));
 		btn.setBackground(colors[color]);
 		btn.setOpaque(true);
+		btn.addActionListener(this);
 		grid[i][j] = btn;
 	    }
 	}
@@ -165,7 +170,20 @@ public class Window extends JFrame implements ActionListener{
 	pane.add(grids, BorderLayout.CENTER);
     }
 	
-    private void updateScore(int x, int y, int xLength, int yLength){
+    public void updateScore(int x, int y, int xLength, int yLength){
+	int num = 0;
+	for (int i = 0; i < (xLength + yLength); i++){
+	    Candy a = board[x][y];
+	    num += a.getScoreWorth();
+	    if (xLength > 0){
+		x++;
+	    }
+	    else if (yLength > 0){
+		y++;
+	    }
+	}
+	score+= num;
+	numMoves.setText("Score: " + score);	
     }
 
     private void moveDown(int x, int y, int xLength, int yLength){
