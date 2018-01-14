@@ -98,7 +98,7 @@ public class Window extends JFrame implements ActionListener, MouseListener{
 		    }		
 		}
 	
-		JLabel intro = new JLabel("BeCrystaled\n");
+		JLabel intro = new JLabel("BeCrystaled\n", JLabel.CENTER);
 		intro.setFont(new Font("Times New Roman", Font.PLAIN, 60));
 		pane.add(intro, BorderLayout.NORTH);
 	
