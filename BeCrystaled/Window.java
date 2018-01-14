@@ -236,7 +236,19 @@ public class Window extends JFrame implements ActionListener, MouseListener{
     }
     	
     private void swap(){
-    		
+	    	int[] a = new int[2], b = previouslySelectedInfo;
+	    JButton btn = (JButton)e.getSource();
+		for (int i = 0; i < grid.length; i++){
+		    for (int j = 0; j < grid[i].length; j++){
+				if (grid[i][j] == btn){
+				    a[0] = i;
+				    a[1] = j;
+				}
+		    }
+		}
+		Candy temp = board[a[0]][a[1]];
+		board[a[0]][a[1]] = board[b[0]][b[1]];
+		board[b[0]][b[1]] = temp;
     }
 
     private boolean hasCombination(){
