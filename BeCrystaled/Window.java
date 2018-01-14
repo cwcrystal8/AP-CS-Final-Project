@@ -18,6 +18,16 @@ public class Window extends JFrame implements ActionListener{
     private boolean hasSelectedOther;
     private int[] previouslySelectedInfo;
     private static ArrayList<String> types;
+    private static Color[] colors = {new Color(202,236,246),
+				     new Color(243,201,225),
+				     new Color(239,246,202),
+				     new Color(202,246,215),
+				     new Color(199,184,240)};
+    private static String[] pics = {"marshmallow.jpg",
+				    "jellybean.png",
+				    "gumdrop.jpg",
+				    "jollyrancher.jpg",
+				    "skittle.png"};
 
     /*---------------------CONSTRUCTOR---------------------
       sets up Window with a grid with each cell being buttons
@@ -41,23 +51,14 @@ public class Window extends JFrame implements ActionListener{
 	pane = this.getContentPane();
 	pane.setLayout(new BorderLayout(20,20));
 
-	JPanel grids = new JPanel(new GridLayout(row,col+1));
+	JPanel grids = new JPanel(new GridLayout(row,col));
 
 
 	//Making initial Candy setup
 	grid = new JButton[row][col];
 	board = new Candy[row][col];
-	Color[] colors = {new Color(202,236,246),
-			  new Color(243,201,225),
-			  new Color(239,246,202),
-			  new Color(202,246,215),
-			  new Color(199,184,240)};
-	
-	String[] pics = {"marshmallow.jpg",
-			 "jellybean.png",
-			 "gumdrop.jpg",
-			 "jollyrancher.jpg",
-			 "skittle.png"};
+
+       
 
 	types = new ArrayList<String>();
 	types.add("Marshmallow");
@@ -142,6 +143,26 @@ public class Window extends JFrame implements ActionListener{
     }
 	
     private void updateBoard(){
+	for (int i = 0; i < grid.length; i++){
+	    for (int j = 0; j < grid[i].length; j++){
+		String candy = board[i][j].getType();
+		int color = types.indexOf(candy);
+		JButton btn = new JButton(new ImageIcon(pics[color]));
+		btn.setBackground(colors[color]);
+		btn.setOpaque(true);
+		grid[i][j] = btn;
+	    }
+	}
+
+	JPanel grids = new JPanel(new GridLayout(grid.length,grid[1].length));
+
+	//Adding from grid to GUI
+	for(int i = 0; i < grid.length; i++){ 
+	    for(int j = 0; j < grid[i].length; j++){
+		grids.add(grid[i][j]);//fill in buttons to grid
+	    }		
+	}
+	pane.add(grids, BorderLayout.CENTER);
     }
 	
     private void updateScore(int x, int y, int xLength, int yLength){
@@ -212,6 +233,7 @@ public class Window extends JFrame implements ActionListener{
     }
 	
     public void storeInfo(ActionEvent e){
+	
     }
 	
 	
