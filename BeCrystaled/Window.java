@@ -9,6 +9,7 @@ public class Window extends JFrame implements ActionListener{
     private Container pane;
     private JButton[][] grid;
     private Candy[][] board;
+    private JPanel grids;
     private int score;
     private int numOfMoves;
     private JButton noMoreMoves;
@@ -51,7 +52,7 @@ public class Window extends JFrame implements ActionListener{
 	pane = this.getContentPane();
 	pane.setLayout(new BorderLayout(20,20));
 
-	JPanel grids = new JPanel(new GridLayout(row,col));
+	grids = new JPanel(new GridLayout(row,col));
 
 
 	//Making initial Candy setup
@@ -106,14 +107,14 @@ public class Window extends JFrame implements ActionListener{
 
 	pane.add(new JLabel("        "), BorderLayout.EAST);
 
-	playerScore.setFont(new Font("Times New Roman", Font.PLAIN, 60));
+	playerScore.setFont(new Font("Times New Roman", Font.PLAIN, 40));
 
 	JPanel subpane = new JPanel(new GridLayout(1,3,50,50));
 	JButton restart = new JButton("Restart");
 	restart.addActionListener(this);
 	
-	restart.setFont(new Font("Times New Roman", Font.PLAIN, 60));
-	numMoves.setFont(new Font("Times New Roman", Font.PLAIN, 60));
+	restart.setFont(new Font("Times New Roman", Font.PLAIN, 40));
+	numMoves.setFont(new Font("Times New Roman", Font.PLAIN, 40));
 
 	subpane.add(numMoves);
 	subpane.add(restart);
@@ -130,8 +131,7 @@ public class Window extends JFrame implements ActionListener{
 
     //-----------------METHODS-----------------
     public void actionPerformed(ActionEvent e){
-	String s = e.getActionCommand();
-	System.out.println("A button has been pressed");
+	
     }
 	
     private int getScore(){
@@ -159,7 +159,7 @@ public class Window extends JFrame implements ActionListener{
 	    }
 	}
 
-	JPanel grids = new JPanel(new GridLayout(grid.length,grid[1].length));
+	grids = new JPanel(new GridLayout(grid.length,grid[1].length));
 
 	//Adding from grid to GUI
 	for(int i = 0; i < grid.length; i++){ 
@@ -168,6 +168,9 @@ public class Window extends JFrame implements ActionListener{
 	    }		
 	}
 	pane.add(grids, BorderLayout.CENTER);
+	grids.revalidate();
+	grids.repaint();
+	pane.setVisible(true);
     }
 	
     public void updateScore(int x, int y, int xLength, int yLength){
@@ -183,7 +186,7 @@ public class Window extends JFrame implements ActionListener{
 	    }
 	}
 	score+= num;
-	numMoves.setText("Score: " + score);	
+	playerScore.setText("Score: " + score);	
     }
 
     private void moveDown(int x, int y, int xLength, int yLength){
