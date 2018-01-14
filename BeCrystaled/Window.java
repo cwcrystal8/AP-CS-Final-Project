@@ -27,7 +27,7 @@ public class Window extends JFrame implements ActionListener{
 	numOfMoves = 50;
 	restart = new JButton("Restart");
 	playerScore = new JLabel("Score: " + score);
-	numMoves = new JLabel("Moves left: " + numOfMoves);
+	numMoves = new JLabel("Moves: " + numOfMoves);
 	hasSelectedOther = false;
 	previouslySelectedInfo = new int[3];
 	
@@ -52,7 +52,13 @@ public class Window extends JFrame implements ActionListener{
 			  new Color(239,246,202),
 			  new Color(202,246,215),
 			  new Color(199,184,240)};
-	String[] pics = {"marshmallow.jpg","jellybean.png","gumdrop.jpg","jollyrancher.jpg","skittle.png"};
+	
+	String[] pics = {"marshmallow.jpg",
+			 "jellybean.png",
+			 "gumdrop.jpg",
+			 "jollyrancher.jpg",
+			 "skittle.png"};
+
 	types = new ArrayList<String>();
 	types.add("Marshmallow");
 	types.add("JellyBean");
@@ -91,15 +97,23 @@ public class Window extends JFrame implements ActionListener{
 	JLabel intro = new JLabel("Welcome to BeCrystaled! \n");
 	intro.setFont(new Font("Times New Roman", Font.PLAIN, 60));
 	pane.add(intro, BorderLayout.NORTH);
+
 	pane.add(new JLabel("        "), BorderLayout.WEST);
+
 	pane.add(grids, BorderLayout.CENTER);
+
 	pane.add(new JLabel("        "), BorderLayout.EAST);
+
 	playerScore.setFont(new Font("Times New Roman", Font.PLAIN, 60));
 
-	JPanel subpane = new JPanel(new GridLayout(1,2,50,50));
+	JPanel subpane = new JPanel(new GridLayout(1,3,50,50));
 	JButton restart = new JButton("Restart");
+	
 	restart.setFont(new Font("Times New Roman", Font.PLAIN, 60));
-	subpane.add(restart, BorderLayout.SOUTH);
+	numMoves.setFont(new Font("Times New Roman", Font.PLAIN, 60));
+
+	subpane.add(numMoves);
+	subpane.add(restart);
 	subpane.add(playerScore);
 	subpane.setBorder(new EmptyBorder(10,10,10,10));
 	
