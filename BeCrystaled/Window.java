@@ -221,10 +221,22 @@ public class Window extends JFrame implements ActionListener, MouseListener{
     }
 
     public boolean isLegalSwap(){
-    		return true;	
+	    	int[] a = new int[2], b = previouslySelectedInfo;
+	        JButton btn = (JButton)e.getSource();
+		for (int i = 0; i < grid.length; i++){
+		    for (int j = 0; j < grid[i].length; j++){
+				if (grid[i][j] == btn){
+				    a[0] = i;
+				    a[1] = j;
+				}
+		    }
+		}
+		return (board[a[0]][a[1]].getType() != board[b[0]][b[1]].getType()) &&
+		       (1 == Math.sqrt((a[0] - b[0]) * (a[0] - b[0]) + (a[1] - b[1]) * (a[1] - b[1])));
     }
     	
     private void swap(){
+    		
     }
 
     private boolean hasCombination(){
