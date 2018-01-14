@@ -5,6 +5,23 @@
 TBD
 
 ## Development Log
+## 01/13
+Completed:
+ * Reformatted GUI to include score, and restart button within a system of nested Layouts
+ * Wrote several methods to detect and find existing combinations on the board
+ * Researching ActionListener interface
+~~~~~~~
+~~~~~~~
+In Progress:
+ * Finishing Window.java for the GUI
+~~~~~~~
+~~~~~~~
+Pending:
+ * Potential additional features (e.g. animations)
+~~~~~~~
+~~~~~~~
+Notes:
+We had to research how to nest Layouts and set margins in order to balance the grid, the score, and the restart button in one GUI, and ended up learning a lot of new syntax, most of which we didn't use (like rigid areas, glue, etc.).
 
 ## 01/10
 Completed:
