@@ -132,9 +132,15 @@ public class Window extends JFrame implements ActionListener, MouseListener{
 
     //-----------------METHODS-----------------
     public void actionPerformed(ActionEvent e){
-		moveDown(7,2,3,0);
-		board[0][0] = new RegularCandy();
-		updateBoard();
+	    	if(hasSelectedOther && isLegalSwap(e)){
+	    	    swap(e);
+	    	    hasSelectedOther = false;
+	    	}
+	    	else {
+	    	    storeInfo(e);
+	    	    hasSelectedOther = true;
+	    	}
+	    	updateBoard();
     }
 	
     private int getScore(){
@@ -220,10 +226,9 @@ public class Window extends JFrame implements ActionListener, MouseListener{
 		     
     }
 
-    public boolean isLegalSwap(){
-	    	int[] a = new int[2], b = previouslySelectedInfo;
-	        JButton btn = (JButton)e.getSource();
-		for (int i = 0; i < grid.length; i++){
+	    int[] a = new int[2], b = previouslySelectedInfo;
+	    JButton btn = (JButton)e.getSource();
+	    for (int i = 0; i < grid.length; i++){
 		    for (int j = 0; j < grid[i].length; j++){
 				if (grid[i][j] == btn){
 				    a[0] = i;
@@ -231,9 +236,21 @@ public class Window extends JFrame implements ActionListener, MouseListener{
 				}
 		    }
 		}
-		return (board[a[0]][a[1]].getType() != board[b[0]][b[1]].getType()) &&
-		       (1 == Math.sqrt((a[0] - b[0]) * (a[0] - b[0]) + (a[1] - b[1]) * (a[1] - b[1])));
-    }
+		return (board[a[0]][a[1]].getType()!=board[b[0]][b[1]].getType()) &&
+		       (1 == Math.sqrt((a[0] - b[0]) * (a[0] - b[0]) +
+		    		               (a[1] - b[1]) * (a[1] - b[1]))) &&
+		       willMakeCombination(e);
+	}
+	
+	private boolean willMakeCombination(ActionEvent e){
+		swap(e);
+		if (hasCombination()){
+		    swap(e);
+		    return true;
+		}
+		return false;
+		
+	}
     	
     private void swap(){
 	    	int[] a = new int[2], b = previouslySelectedInfo;
