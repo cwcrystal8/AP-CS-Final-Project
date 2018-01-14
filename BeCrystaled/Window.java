@@ -158,7 +158,12 @@ public class Window extends JFrame implements ActionListener{
     }
 
     private boolean hasCombination(){
-	return true;
+	for (int i = 0; i < 5; i++){
+	    if (hasCombination(types.get(i))){
+		return true;
+	    }
+	}
+	return false;
     }
 	
     public boolean hasCombination(String type){
@@ -213,16 +218,7 @@ public class Window extends JFrame implements ActionListener{
 	
     public static void main (String[] args) {
 	Window win = new Window(9,9);
-	    for (int i = 0; i < 5; i++){
-		String temp = "[";
-		int[] a = win.findCombination(types.get(i));
-		for (int j = 0; j < a.length; j++){
-		    temp += a[j] + ", ";
-		}
-		System.out.println(temp.substring(0,temp.length() - 2) + "]");
-	    }
     }
     	
-    //github in terminal was not working
 }
 
