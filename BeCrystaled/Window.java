@@ -4,7 +4,7 @@ import java.awt.event.*;
 import java.util.*;
 import javax.swing.border.*;
 
-public class Window extends JFrame implements ActionListener{
+public class Window extends JFrame implements ActionListener, MouseListener{
     //------INSTANCE VARIABLES------
     private Container pane;
     private JButton[][] grid;
@@ -84,6 +84,7 @@ public class Window extends JFrame implements ActionListener{
 		btn.setBackground(colors[color]);
 		btn.setOpaque(true);
 		btn.addActionListener(this);
+		btn.addMouseListener(this);
 		grid[i][j] = btn;
 	    }
 	}
@@ -131,7 +132,9 @@ public class Window extends JFrame implements ActionListener{
 
     //-----------------METHODS-----------------
     public void actionPerformed(ActionEvent e){
-	
+	//	moveDown(7,2,3,0);
+	board[0][0] = new RegularCandy();
+	updateBoard();
     }
 	
     private int getScore(){
@@ -147,6 +150,7 @@ public class Window extends JFrame implements ActionListener{
     }
 	
     private void updateBoard(){
+	pane.remove(grids);
 	for (int i = 0; i < grid.length; i++){
 	    for (int j = 0; j < grid[i].length; j++){
 		String candy = board[i][j].getType();
@@ -155,6 +159,7 @@ public class Window extends JFrame implements ActionListener{
 		btn.setBackground(colors[color]);
 		btn.setOpaque(true);
 		btn.addActionListener(this);
+		btn.addMouseListener(this);
 		grid[i][j] = btn;
 	    }
 	}
@@ -167,6 +172,7 @@ public class Window extends JFrame implements ActionListener{
 		grids.add(grid[i][j]);//fill in buttons to grid
 	    }		
 	}
+
 	pane.add(grids, BorderLayout.CENTER);
 	grids.revalidate();
 	grids.repaint();
@@ -190,6 +196,27 @@ public class Window extends JFrame implements ActionListener{
     }
 
     private void moveDown(int x, int y, int xLength, int yLength){
+	if (xLength > 0){
+	    for (int i = 0; i < xLength; i++){
+		for (int j = x; j > 0; j--){
+		    board[j][y + i] = board[j - 1][y + i];
+		}
+		board[0][y + i] = new RegularCandy();
+
+	    }
+	}
+	else if (yLength > 0){
+	    int tempIncrement = 0;
+	    for (int i =  x - yLength; i >= 0; i--){
+		board[x - tempIncrement][y] = board[i][y];
+		tempIncrement++;
+	    }
+	    for (int i = x - tempIncrement; i >= 0; i--){
+		board[i][y] = new RegularCandy();
+	    }
+	}
+		
+		     
     }
 
     public boolean isLegalSwap(){
@@ -256,9 +283,23 @@ public class Window extends JFrame implements ActionListener{
     public void storeInfo(ActionEvent e){
 	
     }
+
+
+    public void mouseEntered(MouseEvent e){
+    }
 	
-	
-	
+    public void mouseExited(MouseEvent e){
+    }
+
+    public void mouseReleased(MouseEvent e){
+    }
+
+    public void mouseClicked(MouseEvent e){
+    }
+
+    public void mousePressed(MouseEvent e){
+    }
+    
     public static void main (String[] args) {
 	Window win = new Window(9,9);
     }
