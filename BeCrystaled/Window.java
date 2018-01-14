@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import javax.swing.border.*;
 
 public class Window extends JFrame implements ActionListener{
     //------INSTANCE VARIABLES------
@@ -16,33 +17,43 @@ public class Window extends JFrame implements ActionListener{
     private JLabel numMoves;
     private boolean hasSelectedOther;
     private int[] previouslySelectedInfo;
+    private static ArrayList<String> types;
 
     /*---------------------CONSTRUCTOR---------------------
       sets up Window with a grid with each cell being buttons
       -----------------------------------------------------*/
     public Window(int row, int col){
+	score = 0;
+	numOfMoves = 50;
+	restart = new JButton("Restart");
+	playerScore = new JLabel("Score: " + score);
+	numMoves = new JLabel("Moves left: " + numOfMoves);
+	hasSelectedOther = false;
+	previouslySelectedInfo = new int[3];
+	
 	this.setTitle("BeCrystaled");
 	this.setSize(1000,1000);
 	this.setLocation(100,100);
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-	//	this.setResizable(false);
 	
 	
 	
 	pane = this.getContentPane();
-	pane.setLayout(new GridLayout(row,col+1));
+	pane.setLayout(new BorderLayout(20,20));
+
+	JPanel grids = new JPanel(new GridLayout(row,col+1));
 
 
 	//Making initial Candy setup
-	grid = new JButton[row][col+1];
+	grid = new JButton[row][col];
 	board = new Candy[row][col];
-	/*	Color[] colors = {new Color(202,236,246),
-			  new Color(202,246,215),
-			  new Color(239,246,202),
+	Color[] colors = {new Color(202,236,246),
 			  new Color(243,201,225),
-			  new Color(199,184,240)};*/
+			  new Color(239,246,202),
+			  new Color(202,246,215),
+			  new Color(199,184,240)};
 	String[] pics = {"marshmallow.jpg","jellybean.png","gumdrop.jpg","jollyrancher.jpg","skittle.png"};
-	ArrayList<String> types = new ArrayList<String>();
+	types = new ArrayList<String>();
 	types.add("Marshmallow");
 	types.add("JellyBean");
 	types.add("GumDrop");
@@ -62,7 +73,7 @@ public class Window extends JFrame implements ActionListener{
 		String candy = board[i][j].getType();
 		int color = types.indexOf(candy);
 		JButton btn = new JButton(new ImageIcon(pics[color]));
-		//	btn.setBackground(colors[color]);
+		btn.setBackground(colors[color]);
 		btn.setOpaque(true);
 		grid[i][j] = btn;
 	    }
@@ -72,39 +83,27 @@ public class Window extends JFrame implements ActionListener{
 
 	//Adding from grid to GUI
 	for(int i = 0; i < row; i++){ 
-	    for(int j = 0; j < col; j++){	
-			if (i == 0) {
-				if(j == col/2){
-					this.add(new JLabel("BeCrystaled"));//title
-				}
-				else{
-	    				this.add(new JLabel(""));//top border
-				}
-	    		}
-	    		else if(i == row-2 && j == col-2){
-	    			grid[1][col-2] = new JButton("Restart");//position restart button in bottom right
-				this.add(grid[1][col-2]);
-			}
-	    		else if(i == 1 && j == col-3){
-				this.add(new JLabel("Score:"));//position Score label in top right
-			}
-	    		else if(i == 1 && j == col-2){
-				this.add(new JLabel("10"));//position Score count in top right
-			}
-	    		else if (j == 0) {
-	    			this.add(new JLabel(""));//left border
-	    		}
-	    		else if (j == col-1 || j == col-2 || j ==col-3 || j ==col-4) {
-	    			this.add(new JLabel(""));//right border
-	    		}
-	    		else if (i == row-1){
-				this.add(new JLabel(""));//bottom border
-			}
-			else {
-			    this.add(grid[i][j]);//fill in buttons to grid
-			}
+	    for(int j = 0; j < col; j++){
+		grids.add(grid[i][j]);//fill in buttons to grid
 	    }		
 	}
+
+	JLabel intro = new JLabel("Welcome to BeCrystaled! \n");
+	intro.setFont(new Font("Times New Roman", Font.PLAIN, 60));
+	pane.add(intro, BorderLayout.NORTH);
+	pane.add(new JLabel("        "), BorderLayout.WEST);
+	pane.add(grids, BorderLayout.CENTER);
+	pane.add(new JLabel("        "), BorderLayout.EAST);
+	playerScore.setFont(new Font("Times New Roman", Font.PLAIN, 60));
+
+	JPanel subpane = new JPanel(new GridLayout(1,2,50,50));
+	JButton restart = new JButton("Restart");
+	restart.setFont(new Font("Times New Roman", Font.PLAIN, 60));
+	subpane.add(restart, BorderLayout.SOUTH);
+	subpane.add(playerScore);
+	subpane.setBorder(new EmptyBorder(10,10,10,10));
+	
+	pane.add(subpane, BorderLayout.SOUTH);
 
 	this.setVisible(true);
 
@@ -117,15 +116,15 @@ public class Window extends JFrame implements ActionListener{
     }
 	
     private int getScore(){
-    		return score; //Accessor method for score
+	return score; //Accessor method for score
     }
 
     private int getMoves(){
-    		return numOfMoves; //Accessor method for number of moves
+	return numOfMoves; //Accessor method for number of moves
     }
 
     private char[][] hasConsectutive(String type){
-    		return new char[1][1];
+	return new char[1][1];
     }
 	
     private void updateBoard(){
@@ -138,22 +137,59 @@ public class Window extends JFrame implements ActionListener{
     }
 
     public boolean isLegalSwap(){
-    		return true;	
+	return true;	
     }
     	
     private void swap(){
     }
 
     private boolean hasCombination(){
-    		return true;
+	return true;
     }
 	
-    private boolean hasCombination(String type){
-    		return true;
+    public boolean hasCombination(String type){
+	for (int i = 0; i < 9; i++){
+	    for (int j = 0; j < 6; j++){
+		Candy a = board[i][j], b = board[i][j+1], c = board[i][j+2];
+		if ((a.getType()).equals(b.getType()) && (b.getType()).equals(c.getType())){
+		    return true;
+		}
+	    }
+	}
+
+	for (int i = 0; i < 6; i++){
+	    for (int j = 0; j < 9; j++){
+		Candy a = board[i][j], b = board[i+1][j], c = board[i+2][j];
+		if ((a.getType()).equals(b.getType()) && (b.getType()).equals(c.getType())){
+		    return true;
+		}
+	    }
+	}
+	return false;
     }
 
     private int[] findCombination(String type){
-    		return new int[1];
+	for (int i = 0; i < 9; i++){
+	    for (int j = 0; j < 6; j++){
+		Candy a = board[i][j], b = board[i][j+1], c = board[i][j+2];
+		if ((a.getType()).equals(b.getType()) && (b.getType()).equals(c.getType()) && c.getType().equals(type)){
+		    int[] info = {i, j, types.indexOf(type),1};
+		    return info;
+		}
+	    }
+	}
+
+	for (int i = 0; i < 6; i++){
+	    for (int j = 0; j < 9; j++){
+		Candy a = board[i][j], b = board[i+1][j], c = board[i+2][j];
+		if ((a.getType()).equals(b.getType()) && (b.getType()).equals(c.getType()) && c.getType().equals(type)){
+		    int[] info = {i, j, types.indexOf(type),-1};
+		    return info;
+		}
+	    }
+	}
+	int[] a = {100,100,100,0};
+	return a;
     }
 	
     public void storeInfo(ActionEvent e){
@@ -162,8 +198,17 @@ public class Window extends JFrame implements ActionListener{
 	
 	
     public static void main (String[] args) {
-    		new Window(11,14);
+	Window win = new Window(9,9);
+	    for (int i = 0; i < 5; i++){
+		String temp = "[";
+		int[] a = win.findCombination(types.get(i));
+		for (int j = 0; j < a.length; j++){
+		    temp += a[j] + ", ";
+		}
+		System.out.println(temp.substring(0,temp.length() - 2) + "]");
+	    }
     }
     	
+    //github in terminal was not working
 }
 
