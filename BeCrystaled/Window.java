@@ -204,9 +204,11 @@ public class Window extends JFrame implements ActionListener, MouseListener{
 	    numOfMoves = 50;
 	    playerScore.setText("Score: " + score);
 	    numMoves.setText("Moves: " + numOfMoves);
+	    updateBoard();
 	}
 	if(hasSelectedOther && isLegalSwap(e)){
 	    swap(e);
+	    updateBoard();
 	    numOfMoves--;
 	    numMoves.setText("Moves: " + numOfMoves);
 	    hasSelectedOther = false;
