@@ -190,7 +190,8 @@ public class Window extends JFrame implements ActionListener, MouseListener{
     //-----------------METHODS-----------------
     public void actionPerformed(ActionEvent e){
 	if (numOfMoves == 0){
-	    
+	    playerScore.setText("Final Score: " + score);
+	    numMoves.setText("Game Over!");
 	}else {
 	JButton button = (JButton)e.getSource();
 	if (restart == button){
@@ -202,7 +203,7 @@ public class Window extends JFrame implements ActionListener, MouseListener{
 	    score = 0;
 	    numOfMoves = 50;
 	    playerScore.setText("Score: " + score);
-	    numMoves.setText("Moves: " + numOfMoves);;
+	    numMoves.setText("Moves: " + numOfMoves);
 	}
 	if(hasSelectedOther && isLegalSwap(e)){
 	    swap(e);
@@ -213,12 +214,38 @@ public class Window extends JFrame implements ActionListener, MouseListener{
 		for (int x = 0; x < 5; x++){
 		    int[] comb = findCombination(types.get(x));
 		    if (comb[3] == 1){ //horizontal
-			boolean isConsecutive = true;
-			int len = 0;
+			boolean isConsecutive = true, isVerConsecutive = true;;
+			int len = 0, vertLen = 0;
+			int[] vertLenInfo = new int[2];
 			for (int j = comb[1]; isConsecutive && j < board.length; j++){
 			    if((board[comb[0]][j].getType().equals(board[comb[0]][comb[1]].getType())) ||
 			       (!(board[comb[0]][j].getIsRegular()))){
 				len++;
+				vertLen = 0;
+				int temporary = comb[0] - 2, temporary2 = comb[0];
+				if (temporary < 0){
+				    temporary = 0;
+				}
+				if (temporary2 > 6){
+				    temporary2 = 6;
+				}
+				for(int k = temporary; isVerConsecutive && k <= temporary2; k++){
+				    if ((board[k][j].getType()).equals(board[k + 1][j].getType()) &&
+					(board[k][j].getType()).equals(board[k + 2][j].getType())){
+					if (vertLen == 0){
+					    vertLen = 3;
+					    vertLenInfo[0] = k;
+					    vertLenInfo[1] = j;
+					}else{
+					    vertLen++;
+					}
+				    }else{
+					if (vertLen != 0){
+					    isVerConsecutive = false;
+					}
+				    }
+				    
+				}
 			    }
 			    else {
 				isConsecutive = false;
@@ -237,12 +264,19 @@ public class Window extends JFrame implements ActionListener, MouseListener{
 			}
 			updateScore(comb[0],comb[1] - backLen,len,0);
 			moveDown(comb[0],comb[1] - backLen,len,0);
+			
+			updateScore(vertLenInfo[0], vertLenInfo[1], 0, vertLen);
+			moveDown(vertLenInfo[0], vertLenInfo[1], 0, vertLen);
+
 			hasSelectedOther = false;
 			if (len == 4){
 			    board[comb[0]][comb[1]] = new FourVertical(comb[1]);
 			}
 			else if (len == 5){
 			    board[comb[0]][comb[1]] = new FiveInARow(comb[0],comb[1]);
+			}
+			else if (vertLen > 0){
+			    board[comb[0]][comb[1]] = new WrapperL(comb[0],comb[1]);
 			}
 		    }
 
