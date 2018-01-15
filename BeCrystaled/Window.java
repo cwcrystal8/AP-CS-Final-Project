@@ -28,10 +28,10 @@ public class Window extends JFrame implements ActionListener, MouseListener{
 				     new Color(239,246,202),
 				     new Color(202,246,215),
 				     new Color(199,184,240)};
-    private static String[] pics = {"marshmallow.jpg",
+    private static String[] pics = {"marshmallow.png",
 				    "jellybean.png",
-				    "gumdrop.jpg",
-				    "jollyrancher.jpg",
+				    "gumdrop.png",
+				    "jollyrancher.png",
 				    "skittle.png",
 				    "FourHorizontal.png",
 				    "FourVertical.png",
