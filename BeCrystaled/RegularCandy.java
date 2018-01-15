@@ -15,6 +15,10 @@ public class RegularCandy extends Candy{
 	return type; //accessor method for type
     }
 
+    public int useSpecialPower(){
+	return 0;
+    }
+
     public int compareTo(Candy other){
 	return 0; //unnecessary method
     }
