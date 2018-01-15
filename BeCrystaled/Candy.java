@@ -13,4 +13,5 @@ public abstract class Candy implements Comparable<Candy>{
     public abstract boolean equals(Candy other); //necessary for Comparable<Candy> interface
     public abstract String getType(); //accessor method for data field in subclasses
     public abstract int getScoreWorth(); //accessor method for data field in subclasses
+    public abstract int useSpecialPower();
 }

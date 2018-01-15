@@ -5,12 +5,10 @@ public class FourHorizontal extends SpecialCandy{
 	ycor = y;
 	setType("FourHorizontal");
 	setScoreWorth(300);
+	setIsRegular(false);
     }
 
 
-    private void clearHorizontal(){
-	System.out.println("You just cleared a row!");
-    }
 
     public int getYCor(){
 	return ycor;
@@ -20,8 +18,8 @@ public class FourHorizontal extends SpecialCandy{
 	ycor = y;
     }
 
-    public void useSpecialPower(){
-	clearHorizontal();
+    public int useSpecialPower(){
+	return 1;
     }
 
     

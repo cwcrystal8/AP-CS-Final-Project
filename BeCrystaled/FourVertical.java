@@ -5,12 +5,10 @@ public class FourVertical extends SpecialCandy{
 	xcor = x;
 	setType("FourVertical");
 	setScoreWorth(300);
+	setIsRegular(false);
     }
 
 
-    private void clearVertical(){
-	System.out.println("You just cleared a column!"); //Temp line, to be replaced later
-    }
 
     public int getXCor(){
 	return xcor;
@@ -20,8 +18,8 @@ public class FourVertical extends SpecialCandy{
 	xcor = x;
     }
 
-    public void useSpecialPower(){
-	clearVertical();
+    public int useSpecialPower(){
+	return 2;
     }
 
     public static void main(String[] args){

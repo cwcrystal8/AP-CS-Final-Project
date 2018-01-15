@@ -26,5 +26,5 @@ public abstract class SpecialCandy extends Candy{
 	return type == other.getType();
     }
 
-    public abstract void useSpecialPower();
+    public abstract int useSpecialPower();
 }

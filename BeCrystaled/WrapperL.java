@@ -7,12 +7,10 @@ public class WrapperL extends SpecialCandy{
 	ycor = y;
 	setType("WrapperL");
 	setScoreWorth(400);
+	setIsRegular(false);
     }
 
-    
-    private void clearSquare(){
-	System.out.println("You just cleared a square!");
-    }
+   
 
     public int getXCor(){
 	return xcor;
@@ -30,8 +28,8 @@ public class WrapperL extends SpecialCandy{
 	ycor = y;
     }
 
-    public void useSpecialPower(){
-	clearSquare();
+    public int useSpecialPower(){
+	return 4;
     }
 
 

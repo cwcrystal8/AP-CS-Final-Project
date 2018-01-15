@@ -1,40 +1,50 @@
 public class FiveInARow extends SpecialCandy{
-    private String candyType;
+    private int xcor;
+    private int ycor;
 
-    public FiveInARow(String canTyp){
-	candyType = canTyp;
+    public FiveInARow(int x, int y){
+	xcor = x;
+	ycor = y;
 	setType("FiveInARow");
 	setScoreWorth(500);
+	setIsRegular(false);
     }
 
-    
-    private void clearAllSameType(){
-	System.out.println("You just cleared all the candies of one type!");
+
+    public int getXCor(){
+	return xcor;
     }
 
-    public String getCandyType(){
-	return candyType;
+    public int getYCor(){
+	return ycor;
     }
 
-    public void setCandyType(String cantype){
-	candyType = cantype;
+    public void setYCor(int y){
+	ycor = y;
     }
 
-    public void useSpecialPower(){
-	clearAllSameType();
+    public void setXCor(int x){
+	xcor = x;
+    }
+
+    public int useSpecialPower(){
+	return 3;
     }
 
 
     public static void main(String[] args){
-	FiveInARow a = new FiveInARow("JellyBean"), b = new FiveInARow("GumDrop");
+	FiveInARow a = new FiveInARow(5,6), b = new FiveInARow(7,8);
 	RegularCandy c = new RegularCandy();
 	
 
-	System.out.println(a.getCandyType());
-	a.setCandyType("GumDrop");
-	System.out.println(a.getCandyType());
+	System.out.println(a.getXCor());
+	System.out.println(a.getYCor());
+	a.setXCor(8);
+	a.setYCor(9);
+	System.out.println(a.getXCor());
+	System.out.println(a.getYCor());
 	a.useSpecialPower();
-	System.out.println(a.getCandyType());
+	System.out.println(a.getType());
 	System.out.println(a.getScoreWorth());
 	System.out.println(a.equals(b));
 	System.out.println(b.equals(a));
