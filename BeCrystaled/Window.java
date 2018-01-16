@@ -42,146 +42,145 @@ public class Window extends JFrame implements ActionListener, MouseListener{
       sets up Window with a grid with each cell being buttons
       -----------------------------------------------------*/
     public Window(int row, int col){
-		score = 0;
-		numOfMoves = 50;
-		restart = new JButton("Restart");
-		playerScore = new JLabel("Score: " + score);
-		numMoves = new JLabel("Moves: " + numOfMoves);
-		hasSelectedOther = false;
-		previouslySelectedInfo = new int[2];
+	score = 0;
+	numOfMoves = 50;
+	playerScore = new JLabel("Score: " + score);
+	numMoves = new JLabel("Moves: " + numOfMoves);
+	hasSelectedOther = false;
+	previouslySelectedInfo = new int[2];
 			
-		this.setTitle("BeCrystaled");
-		this.setSize(1000,1000);
-		this.setLocation(100,10);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-			
+	this.setTitle("BeCrystaled");
+	this.setSize(1000,1000);
+	this.setLocation(100,10);
+	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 			
 			
-		pane = this.getContentPane();
-		pane.setLayout(new BorderLayout(20,20));
+			
+	pane = this.getContentPane();
+	pane.setLayout(new BorderLayout(20,20));
 		
-		grids = new JPanel(new GridLayout(row,col));
+	grids = new JPanel(new GridLayout(row,col));
 		
 		
-		//Making initial Candy setup
-		grid = new JButton[row][col];
-		board = new Candy[row][col];
+	//Making initial Candy setup
+	grid = new JButton[row][col];
+	board = new Candy[row][col];
 		
 		       
 		
-		types = new ArrayList<String>();
-		types.add("Marshmallow");
-		types.add("JellyBean");
-		types.add("GumDrop");
-		types.add("JollyRancher");
-		types.add("Skittle");
-		types.add("FourHorizontal");
-		types.add("FourVertical");
-		types.add("FiveInARow");
-		types.add("WrapperL");
+	types = new ArrayList<String>();
+	types.add("Marshmallow");
+	types.add("JellyBean");
+	types.add("GumDrop");
+	types.add("JollyRancher");
+	types.add("Skittle");
+	types.add("FourHorizontal");
+	types.add("FourVertical");
+	types.add("FiveInARow");
+	types.add("WrapperL");
 	
 						
 		
 			
 		
-		for (int i = 0; i < row; i++){
-		    for (int j = 0; j < col; j++){
-		    		board[i][j] = new RegularCandy();
-		    }
-		}
+	for (int i = 0; i < row; i++){
+	    for (int j = 0; j < col; j++){
+		board[i][j] = new RegularCandy();
+	    }
+	}
 	
-		//Clearing existing combinations
-		int numIter = 0;
-		while(hasCombination()){
-		    numIter++;
-		    if (numIter > 100){
-				for (int i = 0; i < row; i++){
-				    for (int j = 0; j < col; j++){
-				    		board[i][j] = new RegularCandy();
-				    }
-				}		
-		    }
-		    for (int x = 0; x < 5; x++){
-				int[] comb = findCombination(types.get(x));
-				if (comb[3] == 1){ //horizontal
-				    boolean isConsecutive = true;
-				    int len = 0;
-				    for (int j = comb[1]; isConsecutive && j < board.length; j++){
-						if(board[comb[0]][j].getType().equals(board[comb[0]][comb[1]].getType())){
-						    len++;
-						}
-						else {
-						    isConsecutive = false;
-						}
-				    }
-				    moveDown(comb[0],comb[1],len,0);
-				}
-				else if (comb[3] == -1){ //vertical
-				    boolean isConsecutive = true;
-				    int len = 0;
-				    for (int i = comb[0]; isConsecutive && i < 9; i++){
-						if(board[i][comb[1]].getType().equals(board[comb[0]][comb[1]].getType())){
-						    len++;
-						}
-						else{
-						    isConsecutive = false;
-						}
-				    }
-				    moveDown(comb[0] + len - 1, comb[1], 0, len);
-				}
-		    }
-		}
-		
-		
+	//Clearing existing combinations
+	int numIter = 0;
+	while(hasCombination()){
+	    numIter++;
+	    if (numIter > 100){
 		for (int i = 0; i < row; i++){
 		    for (int j = 0; j < col; j++){
-				String candy = board[i][j].getType();
-				int color = types.indexOf(candy);
-				JButton btn = new JButton(new ImageIcon(pics[color]));
-				btn.setBackground(colors[color]);
-				btn.setOpaque(true);
-				btn.addActionListener(this);
-				btn.addMouseListener(this);
-				grid[i][j] = btn;
+			board[i][j] = new RegularCandy();
 		    }
+		}		
+	    }
+	    for (int x = 0; x < 5; x++){
+		int[] comb = findCombination(types.get(x));
+		if (comb[3] == 1){ //horizontal
+		    boolean isConsecutive = true;
+		    int len = 0;
+		    for (int j = comb[1]; isConsecutive && j < board.length; j++){
+			if(board[comb[0]][j].getType().equals(board[comb[0]][comb[1]].getType())){
+			    len++;
+			}
+			else {
+			    isConsecutive = false;
+			}
+		    }
+		    moveDown(comb[0],comb[1],len,0);
 		}
-		
-		
-		
-		//Adding from grid to GUI
-		for(int i = 0; i < row; i++){ 
-		    for(int j = 0; j < col; j++){
-		    		grids.add(grid[i][j]);//fill in buttons to grid
-		    }		
+		else if (comb[3] == -1){ //vertical
+		    boolean isConsecutive = true;
+		    int len = 0;
+		    for (int i = comb[0]; isConsecutive && i < 9; i++){
+			if(board[i][comb[1]].getType().equals(board[comb[0]][comb[1]].getType())){
+			    len++;
+			}
+			else{
+			    isConsecutive = false;
+			}
+		    }
+		    moveDown(comb[0] + len - 1, comb[1], 0, len);
 		}
+	    }
+	}
 		
-		JLabel intro = new JLabel("BeCrystaled\n", JLabel.CENTER);
-		intro.setFont(new Font("Times New Roman", Font.PLAIN, 60));
-		pane.add(intro, BorderLayout.NORTH);
 		
-		pane.add(new JLabel("        "), BorderLayout.WEST);
+	for (int i = 0; i < row; i++){
+	    for (int j = 0; j < col; j++){
+		String candy = board[i][j].getType();
+		int color = types.indexOf(candy);
+		JButton btn = new JButton(new ImageIcon(pics[color]));
+		btn.setBackground(colors[color]);
+		btn.setOpaque(true);
+		btn.addActionListener(this);
+		btn.addMouseListener(this);
+		grid[i][j] = btn;
+	    }
+	}
 		
-		pane.add(grids, BorderLayout.CENTER);
 		
-		pane.add(new JLabel("        "), BorderLayout.EAST);
 		
-		playerScore.setFont(new Font("Times New Roman", Font.PLAIN, 40));
+	//Adding from grid to GUI
+	for(int i = 0; i < row; i++){ 
+	    for(int j = 0; j < col; j++){
+		grids.add(grid[i][j]);//fill in buttons to grid
+	    }		
+	}
 		
-		JPanel subpane = new JPanel(new GridLayout(1,3,50,50));
-		JButton restart = new JButton("Restart");
-		restart.addActionListener(this);
+	JLabel intro = new JLabel("BeCrystaled\n", JLabel.CENTER);
+	intro.setFont(new Font("Times New Roman", Font.PLAIN, 60));
+	pane.add(intro, BorderLayout.NORTH);
+		
+	pane.add(new JLabel("        "), BorderLayout.WEST);
+		
+	pane.add(grids, BorderLayout.CENTER);
+		
+	pane.add(new JLabel("        "), BorderLayout.EAST);
+		
+	playerScore.setFont(new Font("Times New Roman", Font.PLAIN, 40));
+		
+	JPanel subpane = new JPanel(new GridLayout(1,3,50,50));
+	restart = new JButton("Restart");
+	restart.addActionListener(this);
 			
-		restart.setFont(new Font("Times New Roman", Font.PLAIN, 40));
-		numMoves.setFont(new Font("Times New Roman", Font.PLAIN, 40));
+	restart.setFont(new Font("Times New Roman", Font.PLAIN, 40));
+	numMoves.setFont(new Font("Times New Roman", Font.PLAIN, 40));
 		
-		subpane.add(numMoves);
-		subpane.add(restart);
-		subpane.add(playerScore);
-		subpane.setBorder(new EmptyBorder(10,10,10,10));
+	subpane.add(numMoves);
+	subpane.add(restart);
+	subpane.add(playerScore);
+	subpane.setBorder(new EmptyBorder(10,10,10,10));
 			
-		pane.add(subpane, BorderLayout.SOUTH);
+	pane.add(subpane, BorderLayout.SOUTH);
 		
-		this.setVisible(true);
+	this.setVisible(true);
 		
 			
 			
@@ -193,139 +192,184 @@ public class Window extends JFrame implements ActionListener, MouseListener{
 	    playerScore.setText("Final Score: " + score);
 	    numMoves.setText("Game Over!");
 	}else {
-	JButton button = (JButton)e.getSource();
-	if (restart == button){
-	    for (int i = 0; i < board.length; i++){
-		for (int j = 0; j < board[i].length; i++){
-		    board[i][j] = new RegularCandy();
+	    JButton button = (JButton)e.getSource();
+	    if (restart == button){
+		for (int i = 0; i < board.length; i++){
+		    for (int j = 0; j < board[i].length; j++){
+			board[i][j] = new RegularCandy();
+		    }
 		}
-	    }
-	    score = 0;
-	    numOfMoves = 50;
-	    playerScore.setText("Score: " + score);
-	    numMoves.setText("Moves: " + numOfMoves);
-	    updateBoard();
-	}
-	if(hasSelectedOther && isLegalSwap(e)){
-	    swap(e);
-	    updateBoard();
-	    numOfMoves--;
-	    numMoves.setText("Moves: " + numOfMoves);
-	    hasSelectedOther = false;
-	    while(hasCombination()){
-		for (int x = 0; x < 5; x++){
-		    int[] comb = findCombination(types.get(x));
-		    if (comb[3] == 1){ //horizontal
-			boolean isConsecutive = true, isVerConsecutive = true;;
-			int len = 0, vertLen = 0;
-			int[] vertLenInfo = new int[2];
-			for (int j = comb[1]; isConsecutive && j < board.length; j++){
-			    if((board[comb[0]][j].getType().equals(board[comb[0]][comb[1]].getType())) ||
-			       (!(board[comb[0]][j].getIsRegular()))){
-				len++;
-				vertLen = 0;
-				int temporary = comb[0] - 2, temporary2 = comb[0];
-				if (temporary < 0){
-				    temporary = 0;
-				}
-				if (temporary2 > 6){
-				    temporary2 = 6;
-				}
-				for(int k = temporary; isVerConsecutive && k <= temporary2; k++){
-				    if ((board[k][j].getType()).equals(board[k + 1][j].getType()) &&
-					(board[k][j].getType()).equals(board[k + 2][j].getType())){
-					if (vertLen == 0){
-					    vertLen = 3;
-					    vertLenInfo[0] = k;
-					    vertLenInfo[1] = j;
-					}else{
-					    vertLen++;
-					}
-				    }else{
-					if (vertLen != 0){
-					    isVerConsecutive = false;
-					}
-				    }
-				    
-				}
-			    }
-			    else {
-				isConsecutive = false;
-			    }
-			}
-			isConsecutive = true;
-			int backLen = 0;
-			for (int j = comb[1] - 1; isConsecutive && j >= 0; j--){
-			    if((board[comb[0]][j].getType().equals(board[comb[0]][comb[1]].getType())) ||
-			       (!(board[comb[0]][j].getIsRegular()))){
-				backLen++;
-			    }
-			    else {
-				isConsecutive = false;
-			    }			    
-			}
-			updateScore(comb[0],comb[1] - backLen,len,0);
-			moveDown(comb[0],comb[1] - backLen,len,0);
-			
-			updateScore(vertLenInfo[0], vertLenInfo[1], 0, vertLen);
-			moveDown(vertLenInfo[0], vertLenInfo[1], 0, vertLen);
 
-			hasSelectedOther = false;
-			if (len == 4){
-			    board[comb[0]][comb[1]] = new FourVertical(comb[1]);
+
+		int numIter = 0;
+		while(hasCombination()){
+		    numIter++;
+		    if (numIter > 100){
+			for (int i = 0; i < board.length; i++){
+			    for (int j = 0; j < board[i].length; j++){
+				board[i][j] = new RegularCandy();
+			    }
+			}		
+		    }
+		    for (int x = 0; x < 5; x++){
+			int[] comb = findCombination(types.get(x));
+			if (comb[3] == 1){ //horizontal
+			    boolean isConsecutive = true;
+			    int len = 0;
+			    for (int j = comb[1]; isConsecutive && j < board.length; j++){
+				if(board[comb[0]][j].getType().equals(board[comb[0]][comb[1]].getType())){
+				    len++;
+				}
+				else {
+				    isConsecutive = false;
+				}
+			    }
+			    moveDown(comb[0],comb[1],len,0);
 			}
-			else if (len == 5){
-			    board[comb[0]][comb[1]] = new FiveInARow(comb[0],comb[1]);
-			}
-			else if (vertLen > 0){
-			    board[comb[0]][comb[1]] = new WrapperL(comb[0],comb[1]);
+			else if (comb[3] == -1){ //vertical
+			    boolean isConsecutive = true;
+			    int len = 0;
+			    for (int i = comb[0]; isConsecutive && i < 9; i++){
+				if(board[i][comb[1]].getType().equals(board[comb[0]][comb[1]].getType())){
+				    len++;
+				}
+				else{
+				    isConsecutive = false;
+				}
+			    }
+			    moveDown(comb[0] + len - 1, comb[1], 0, len);
 			}
 		    }
+		}
+
+
+
+		score = 0;
+		numOfMoves = 50;
+		playerScore.setText("Score: " + score);
+		numMoves.setText("Moves: " + numOfMoves);
+		updateBoard();
+	    }
+	    if(hasSelectedOther && isLegalSwap(e)){
+		swap(e);
+		updateBoard();
+		numOfMoves--;
+		numMoves.setText("Moves: " + numOfMoves);
+		hasSelectedOther = false;
+		while(hasCombination()){
+		    for (int x = 0; x < 5; x++){
+			int[] comb = findCombination(types.get(x));
+			if (comb[3] == 1){ //horizontal
+			    boolean isConsecutive = true, isVerConsecutive = true;;
+			    int len = 0, vertLen = 0;
+			    int[] vertLenInfo = new int[2];
+			    for (int j = comb[1]; isConsecutive && j < board.length; j++){
+				if((board[comb[0]][j].getType().equals(board[comb[0]][comb[1]].getType())) ||
+				   (!(board[comb[0]][j].getIsRegular()))){
+				    len++;
+				    vertLen = 0;
+				    int temporary = comb[0] - 2, temporary2 = comb[0];
+				    if (temporary < 0){
+					temporary = 0;
+				    }
+				    if (temporary2 > 6){
+					temporary2 = 6;
+				    }
+				    for(int k = temporary; isVerConsecutive && k <= temporary2; k++){
+					if ((board[k][j].getType()).equals(board[k + 1][j].getType()) &&
+					    (board[k][j].getType()).equals(board[k + 2][j].getType())){
+					    if (vertLen == 0){
+						vertLen = 3;
+						vertLenInfo[0] = k;
+						vertLenInfo[1] = j;
+					    }else{
+						vertLen++;
+					    }
+					}else{
+					    if (vertLen != 0){
+						isVerConsecutive = false;
+					    }
+					}
+				    
+				    }
+				}
+				else {
+				    isConsecutive = false;
+				}
+			    }
+			    isConsecutive = true;
+			    int backLen = 0;
+			    for (int j = comb[1] - 1; isConsecutive && j >= 0; j--){
+				if((board[comb[0]][j].getType().equals(board[comb[0]][comb[1]].getType())) ||
+				   (!(board[comb[0]][j].getIsRegular()))){
+				    backLen++;
+				}
+				else {
+				    isConsecutive = false;
+				}			    
+			    }
+			    updateScore(comb[0],comb[1] - backLen,len,0);
+			    moveDown(comb[0],comb[1] - backLen,len,0);
+			
+			    updateScore(vertLenInfo[0], vertLenInfo[1], 0, vertLen);
+			    moveDown(vertLenInfo[0], vertLenInfo[1], 0, vertLen);
+
+			    hasSelectedOther = false;
+			    if (len == 4){
+				board[comb[0]][comb[1]] = new FourVertical(comb[1]);
+			    }
+			    else if (len == 5){
+				board[comb[0]][comb[1]] = new FiveInARow(comb[0],comb[1]);
+			    }
+			    else if (vertLen > 0){
+				board[comb[0]][comb[1]] = new WrapperL(comb[0],comb[1]);
+			    }
+			}
 
 		    
-		    else if (comb[3] == -1){ //vertical
-			boolean isConsecutive = true;
-			int len = 0;
-			for (int i = comb[0]; isConsecutive && i < 9; i++){
-			    if((board[i][comb[1]].getType().equals(board[comb[0]][comb[1]].getType())) ||
-			       (!(board[i][comb[1]].getIsRegular()))){
-				len++;
+			else if (comb[3] == -1){ //vertical
+			    boolean isConsecutive = true;
+			    int len = 0;
+			    for (int i = comb[0]; isConsecutive && i < 9; i++){
+				if((board[i][comb[1]].getType().equals(board[comb[0]][comb[1]].getType())) ||
+				   (!(board[i][comb[1]].getIsRegular()))){
+				    len++;
+				}
+				else{
+				    isConsecutive = false;
+				}
 			    }
-			    else{
-				isConsecutive = false;
+			    isConsecutive = true;
+			    int backLen = 0;
+			    for (int i = comb[0] - 1; isConsecutive && i >= 0; i++){
+				if((board[i][comb[1]].getType().equals(board[comb[0]][comb[1]].getType())) ||
+				   (!(board[i][comb[1]].getIsRegular()))){
+				    backLen++;
+				}
+				else{
+				    isConsecutive = false;
+				    previouslySelectedInfo = new int[2];
+				}
 			    }
-			}
-			isConsecutive = true;
-			int backLen = 0;
-			for (int i = comb[0] - 1; isConsecutive && i >= 0; i++){
-			    if((board[i][comb[1]].getType().equals(board[comb[0]][comb[1]].getType())) ||
-			       (!(board[i][comb[1]].getIsRegular()))){
-				backLen++;
+			    updateScore(comb[0] - backLen, comb[1],0,len + backLen);
+			    moveDown(comb[0] + len - 1, comb[1], 0, len + backLen);
+			    hasSelectedOther = false;
+			    if (len == 4){
+				board[comb[0]][comb[1]] = new FourHorizontal(comb[0]);
 			    }
-			    else{
-				isConsecutive = false;
-				previouslySelectedInfo = new int[2];
+			    else if (len == 5){
+				board[comb[0]][comb[1]] = new FiveInARow(comb[0],comb[1]);
 			    }
-			}
-			updateScore(comb[0] - backLen, comb[1],0,len + backLen);
-			moveDown(comb[0] + len - 1, comb[1], 0, len + backLen);
-			hasSelectedOther = false;
-			if (len == 4){
-			    board[comb[0]][comb[1]] = new FourHorizontal(comb[0]);
-			}
-			else if (len == 5){
-			    board[comb[0]][comb[1]] = new FiveInARow(comb[0],comb[1]);
 			}
 		    }
 		}
 	    }
+	    else {
+		storeInfo(e);
+		hasSelectedOther = true;
+	    }
+	    updateBoard();
 	}
-	else {
-	    storeInfo(e);
-	    hasSelectedOther = true;
-	}
-	updateBoard();
-    }
 
     }
 	
@@ -566,8 +610,8 @@ public class Window extends JFrame implements ActionListener, MouseListener{
 		    }
 		}
 		else if ((a.getType()).equals(b.getType()) &&
-		    (b.getType()).equals(c.getType()) &&
-		    (c.getType()).equals(type)){
+			 (b.getType()).equals(c.getType()) &&
+			 (c.getType()).equals(type)){
 		    int[] info = {i, j, types.indexOf(type),1};
 		    return info;
 		}
@@ -586,8 +630,8 @@ public class Window extends JFrame implements ActionListener, MouseListener{
 		    }
 		}
 		else if ((a.getType()).equals(b.getType()) &&
-		    (b.getType()).equals(c.getType()) &&
-		    (c.getType()).equals(type)){
+			 (b.getType()).equals(c.getType()) &&
+			 (c.getType()).equals(type)){
 		    int[] info = {i, j, types.indexOf(type),-1};
 		    return info;
 		}
