@@ -201,6 +201,11 @@ public class Window extends JFrame implements ActionListener, MouseListener{
 	if (numOfMoves == 0){
 	    playerScore.setText("Final Score: " + score);
 	    numMoves.setText("Game Over!");
+	    JButton button = (JButton)e.getSource();
+	    if (highscore == button){
+		new HighScoreBoard(score);
+	    }
+	    
 	}else {
 	    JButton button = (JButton)e.getSource();
 	    if (highscore == button){
