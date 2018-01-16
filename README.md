@@ -2,7 +2,10 @@
 
 ## Instructions
 
-TBD
+1. Select a candy
+2. Select another candy in a cell directly next to the originally selected candy to swap (Note that the swap must create a valid combination of at least 3 of the same candies in a row)
+3. Continue until the 50 moves have been exhausted
+4. Try to obtain a high score! :)
 
 ## Development Log
 ## 01/15
