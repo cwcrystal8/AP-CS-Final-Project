@@ -1,11 +1,28 @@
 # AP-CS-Final-Project
 
 ## Instructions
+How to run:
+1. Download the BeCrystaled directory.
+2. In a bash shell, run
+~~~~
+$ javac StartPage.java
+~~~~
+3. Then run
+~~~~
+$ java StartPage
+~~~~
 
-1. Select a candy
-2. Select another candy in a cell directly next to the originally selected candy to swap (Note that the swap must create a valid combination of at least 3 of the same candies in a row)
-3. Continue until the 50 moves have been exhausted
-4. Try to obtain a high score! :)
+How to play:
+1. Press start to start a game.
+2. Select a candy.
+3. Select another candy in a cell directly next to the originally selected candy to swap (Note that the swap must create a valid combination of at least 3 of the same candies in a row). Combinations of 4 in a row, 5 in a row, or an L or T shape will result in Special Candies, which can be combined with any two consecutive Regular candies of the same type. When combined, each one will be activated to reveal a special power. 
+ * Four in a row (vertical): Clears an entire column
+ * Four in a row (horizontal): Clears an entire row
+ * Five in a row (horizontal or vertical): Clears a row and a column
+ * L or T shape: Clears the surrounding 3 by 3 square
+4. Continue until the 50 moves have been exhausted.
+5. If you run out of possible combinations, press restart, and your game will end.
+6. Try to obtain a high score! :)
 
 ## Development Log
 ## 01/15
