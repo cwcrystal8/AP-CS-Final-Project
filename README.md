@@ -5,6 +5,23 @@
 TBD
 
 ## Development Log
+## 01/15
+Completed:
+ * Finished basics of Window.java for the GUI
+ * Incorporated ability to support SpecialCandy combinations
+~~~~~~~
+~~~~~~~
+In Progress:
+ * Easier additional features (e.g. start menu, programmed delay, high score board, etc.)
+~~~~~~~
+~~~~~~~
+Pending:
+ * Harder additional features (e.g. animations)
+~~~~~~~
+~~~~~~~
+Notes:
+We were finally able to incorporate the SpecialCandy classes into the GUI to make it compatible, and we worked out how to successfully move down the board, update the score, and update the GUI to reflect the changes in the board. We encountered a major obstacle when we found that the updates in the GUI would revert back to the original board after a mouse hovered over the button, but then we implemented MouseListener to override that effect. By the next week, we should have a start menu completed, as well as a high score board. Ideally, the GUI would update after every combination to show each change in the board, but right now the calls to repaint() are getting grouped together so that the GUI only updates at the end of every move. Hopefully we'll be able to resolve this issue. 
+
 ## 01/13
 Completed:
  * Reformatted GUI to include score, and restart button within a system of nested Layouts
