@@ -42,149 +42,149 @@ public class Window extends JFrame implements ActionListener, MouseListener{
       sets up Window with a grid with each cell being buttons
       -----------------------------------------------------*/
     public Window(int row, int col){
-	score = 0;
-	numOfMoves = 50;
-	restart = new JButton("Restart");
-	playerScore = new JLabel("Score: " + score);
-	numMoves = new JLabel("Moves: " + numOfMoves);
-	hasSelectedOther = false;
-	previouslySelectedInfo = new int[2];
+		score = 0;
+		numOfMoves = 50;
+		restart = new JButton("Restart");
+		playerScore = new JLabel("Score: " + score);
+		numMoves = new JLabel("Moves: " + numOfMoves);
+		hasSelectedOther = false;
+		previouslySelectedInfo = new int[2];
+			
+		this.setTitle("BeCrystaled");
+		this.setSize(1000,1000);
+		this.setLocation(100,10);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+			
+			
+			
+		pane = this.getContentPane();
+		pane.setLayout(new BorderLayout(20,20));
 		
-	this.setTitle("BeCrystaled");
-	this.setSize(1000,1000);
-	this.setLocation(100,10);
-	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		grids = new JPanel(new GridLayout(row,col));
 		
 		
+		//Making initial Candy setup
+		grid = new JButton[row][col];
+		board = new Candy[row][col];
 		
-	pane = this.getContentPane();
-	pane.setLayout(new BorderLayout(20,20));
-	
-	grids = new JPanel(new GridLayout(row,col));
-	
-	
-	//Making initial Candy setup
-	grid = new JButton[row][col];
-	board = new Candy[row][col];
-	
-	       
-	
-	types = new ArrayList<String>();
-	types.add("Marshmallow");
-	types.add("JellyBean");
-	types.add("GumDrop");
-	types.add("JollyRancher");
-	types.add("Skittle");
-	types.add("FourHorizontal");
-	types.add("FourVertical");
-	types.add("FiveInARow");
-	types.add("WrapperL");
-
-					
-	
+		       
 		
+		types = new ArrayList<String>();
+		types.add("Marshmallow");
+		types.add("JellyBean");
+		types.add("GumDrop");
+		types.add("JollyRancher");
+		types.add("Skittle");
+		types.add("FourHorizontal");
+		types.add("FourVertical");
+		types.add("FiveInARow");
+		types.add("WrapperL");
 	
-	for (int i = 0; i < row; i++){
-	    for (int j = 0; j < col; j++){
-		board[i][j] = new RegularCandy();
-	    }
-	}
-
-	//Clearing existing combinations
-	int numIter = 0;
-	while(hasCombination()){
-	    numIter++;
-	    if (numIter > 100){
+						
+		
+			
+		
 		for (int i = 0; i < row; i++){
 		    for (int j = 0; j < col; j++){
-			board[i][j] = new RegularCandy();
+		    		board[i][j] = new RegularCandy();
 		    }
-		}		
-	    }
-	    for (int x = 0; x < 5; x++){
-		int[] comb = findCombination(types.get(x));
-		if (comb[3] == 1){ //horizontal
-		    boolean isConsecutive = true;
-		    int len = 0;
-		    for (int j = comb[1]; isConsecutive && j < board.length; j++){
-			if(board[comb[0]][j].getType().equals(board[comb[0]][comb[1]].getType())){
-			    len++;
-			}
-			else {
-			    isConsecutive = false;
-			}
-		    }
-		    moveDown(comb[0],comb[1],len,0);
 		}
-		else if (comb[3] == -1){ //vertical
-		    boolean isConsecutive = true;
-		    int len = 0;
-		    for (int i = comb[0]; isConsecutive && i < 9; i++){
-			if(board[i][comb[1]].getType().equals(board[comb[0]][comb[1]].getType())){
-			    len++;
-			}
-			else{
-			    isConsecutive = false;
-			}
+	
+		//Clearing existing combinations
+		int numIter = 0;
+		while(hasCombination()){
+		    numIter++;
+		    if (numIter > 100){
+				for (int i = 0; i < row; i++){
+				    for (int j = 0; j < col; j++){
+				    		board[i][j] = new RegularCandy();
+				    }
+				}		
 		    }
-		    moveDown(comb[0] + len - 1, comb[1], 0, len);
+		    for (int x = 0; x < 5; x++){
+				int[] comb = findCombination(types.get(x));
+				if (comb[3] == 1){ //horizontal
+				    boolean isConsecutive = true;
+				    int len = 0;
+				    for (int j = comb[1]; isConsecutive && j < board.length; j++){
+						if(board[comb[0]][j].getType().equals(board[comb[0]][comb[1]].getType())){
+						    len++;
+						}
+						else {
+						    isConsecutive = false;
+						}
+				    }
+				    moveDown(comb[0],comb[1],len,0);
+				}
+				else if (comb[3] == -1){ //vertical
+				    boolean isConsecutive = true;
+				    int len = 0;
+				    for (int i = comb[0]; isConsecutive && i < 9; i++){
+						if(board[i][comb[1]].getType().equals(board[comb[0]][comb[1]].getType())){
+						    len++;
+						}
+						else{
+						    isConsecutive = false;
+						}
+				    }
+				    moveDown(comb[0] + len - 1, comb[1], 0, len);
+				}
+		    }
 		}
-	    }
-	}
-	
-	
-	for (int i = 0; i < row; i++){
-	    for (int j = 0; j < col; j++){
-		String candy = board[i][j].getType();
-		int color = types.indexOf(candy);
-		JButton btn = new JButton(new ImageIcon(pics[color]));
-		btn.setBackground(colors[color]);
-		btn.setOpaque(true);
-		btn.addActionListener(this);
-		btn.addMouseListener(this);
-		grid[i][j] = btn;
-	    }
-	}
-	
-	
-	
-	//Adding from grid to GUI
-	for(int i = 0; i < row; i++){ 
-	    for(int j = 0; j < col; j++){
-		grids.add(grid[i][j]);//fill in buttons to grid
-	    }		
-	}
-	
-	JLabel intro = new JLabel("BeCrystaled\n");
-	intro.setFont(new Font("Times New Roman", Font.PLAIN, 60));
-	pane.add(intro, BorderLayout.NORTH);
-	
-	pane.add(new JLabel("        "), BorderLayout.WEST);
-	
-	pane.add(grids, BorderLayout.CENTER);
-	
-	pane.add(new JLabel("        "), BorderLayout.EAST);
-	
-	playerScore.setFont(new Font("Times New Roman", Font.PLAIN, 40));
-	
-	JPanel subpane = new JPanel(new GridLayout(1,3,50,50));
-	JButton restart = new JButton("Restart");
-	restart.addActionListener(this);
-		
-	restart.setFont(new Font("Times New Roman", Font.PLAIN, 40));
-	numMoves.setFont(new Font("Times New Roman", Font.PLAIN, 40));
-	
-	subpane.add(numMoves);
-	subpane.add(restart);
-	subpane.add(playerScore);
-	subpane.setBorder(new EmptyBorder(10,10,10,10));
-		
-	pane.add(subpane, BorderLayout.SOUTH);
-	
-	this.setVisible(true);
-	
 		
 		
+		for (int i = 0; i < row; i++){
+		    for (int j = 0; j < col; j++){
+				String candy = board[i][j].getType();
+				int color = types.indexOf(candy);
+				JButton btn = new JButton(new ImageIcon(pics[color]));
+				btn.setBackground(colors[color]);
+				btn.setOpaque(true);
+				btn.addActionListener(this);
+				btn.addMouseListener(this);
+				grid[i][j] = btn;
+		    }
+		}
+		
+		
+		
+		//Adding from grid to GUI
+		for(int i = 0; i < row; i++){ 
+		    for(int j = 0; j < col; j++){
+		    		grids.add(grid[i][j]);//fill in buttons to grid
+		    }		
+		}
+		
+		JLabel intro = new JLabel("BeCrystaled\n", JLabel.CENTER);
+		intro.setFont(new Font("Times New Roman", Font.PLAIN, 60));
+		pane.add(intro, BorderLayout.NORTH);
+		
+		pane.add(new JLabel("        "), BorderLayout.WEST);
+		
+		pane.add(grids, BorderLayout.CENTER);
+		
+		pane.add(new JLabel("        "), BorderLayout.EAST);
+		
+		playerScore.setFont(new Font("Times New Roman", Font.PLAIN, 40));
+		
+		JPanel subpane = new JPanel(new GridLayout(1,3,50,50));
+		JButton restart = new JButton("Restart");
+		restart.addActionListener(this);
+			
+		restart.setFont(new Font("Times New Roman", Font.PLAIN, 40));
+		numMoves.setFont(new Font("Times New Roman", Font.PLAIN, 40));
+		
+		subpane.add(numMoves);
+		subpane.add(restart);
+		subpane.add(playerScore);
+		subpane.setBorder(new EmptyBorder(10,10,10,10));
+			
+		pane.add(subpane, BorderLayout.SOUTH);
+		
+		this.setVisible(true);
+		
+			
+			
     }
 
     //-----------------METHODS-----------------
