@@ -22,17 +22,21 @@ How to play:
  * L or T shape: Clears the surrounding 3 by 3 square
 4. Continue until the 50 moves have been exhausted.
 5. If you run out of possible combinations, press restart, and your game will end.
-6. Try to obtain a high score! :)
+6. Try to obtain a high score! :) Once you have your final score, press the "High Scores" button to log your high score. TYpe your name, and press "Enter." If you rank in the top ten, your score will appear on the board.
+
+Good luck!
 
 ## Development Log
 ## 01/15
 Completed:
  * Finished basics of Window.java for the GUI
  * Incorporated ability to support SpecialCandy combinations
+ * Added a high score board
+ * Added a start menu
 ~~~~~~~
 ~~~~~~~
 In Progress:
- * Easier additional features (e.g. start menu, programmed delay, high score board, etc.)
+ * Easier additional features (e.g. programmed delay)
 ~~~~~~~
 ~~~~~~~
 Pending:
