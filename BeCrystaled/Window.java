@@ -174,10 +174,10 @@ public class Window extends JFrame implements ActionListener, MouseListener{
 	restart.addActionListener(this);
 	highscore.addActionListener(this);
 	/*	highscore.addActionListener(new ActionListener() {
-	    public void actionPerformed(ActionEvent e){
+		public void actionPerformed(ActionEvent e){
 		new HighScoreBoard(score);
-	    }
-	    });*/
+		}
+		});*/
 	highscore.setFont(new Font("Times New Roman", Font.PLAIN, 30));
 	restart.setFont(new Font("Times New Roman", Font.PLAIN, 30));
 	numMoves.setFont(new Font("Times New Roman", Font.PLAIN, 40));
@@ -205,7 +205,64 @@ public class Window extends JFrame implements ActionListener, MouseListener{
 	    if (highscore == button){
 		new HighScoreBoard(score);
 	    }
-	    
+	    if (restart == button){
+		for (int i = 0; i < board.length; i++){
+		    for (int j = 0; j < board[i].length; j++){
+			board[i][j] = new RegularCandy();
+		    }
+		}
+
+
+		int numIter = 0;
+		while(hasCombination()){
+		    numIter++;
+		    if (numIter > 100){
+			for (int i = 0; i < board.length; i++){
+			    for (int j = 0; j < board[i].length; j++){
+				board[i][j] = new RegularCandy();
+			    }
+			}		
+		    }
+		    for (int x = 0; x < 5; x++){
+			int[] comb = findCombination(types.get(x));
+			if (comb[3] == 1){ //horizontal
+			    boolean isConsecutive = true;
+			    int len = 0;
+			    for (int j = comb[1]; isConsecutive && j < board.length; j++){
+				if(board[comb[0]][j].getType().equals(board[comb[0]][comb[1]].getType())){
+				    len++;
+				}
+				else {
+				    isConsecutive = false;
+				}
+			    }
+			    moveDown(comb[0],comb[1],len,0);
+			}
+			else if (comb[3] == -1){ //vertical
+			    boolean isConsecutive = true;
+			    int len = 0;
+			    for (int i = comb[0]; isConsecutive && i < 9; i++){
+				if(board[i][comb[1]].getType().equals(board[comb[0]][comb[1]].getType())){
+				    len++;
+				}
+				else{
+				    isConsecutive = false;
+				}
+			    }
+			    moveDown(comb[0] + len - 1, comb[1], 0, len);
+			}
+		    }
+		}
+
+
+
+		score = 0;
+		numOfMoves = 50;
+		playerScore.setText("Score: " + score);
+		numMoves.setText("Moves: " + numOfMoves);
+		updateBoard();
+
+	    }
 	}else {
 	    JButton button = (JButton)e.getSource();
 	    if (highscore == button){
@@ -270,7 +327,7 @@ public class Window extends JFrame implements ActionListener, MouseListener{
 	    }
 	    if(hasSelectedOther && isLegalSwap(e)){
 		swap(e);
-		updateBoard();
+		//updateBoard();
 		numOfMoves--;
 		numMoves.setText("Moves: " + numOfMoves);
 		hasSelectedOther = false;
@@ -388,9 +445,9 @@ public class Window extends JFrame implements ActionListener, MouseListener{
 	    }
 	    updateBoard();
 	}
-
     }
-	
+   
+    
     private int getScore(){
 	return score; //Accessor method for score
     }
@@ -398,7 +455,7 @@ public class Window extends JFrame implements ActionListener, MouseListener{
     private int getMoves(){
 	return numOfMoves; //Accessor method for number of moves
     }
-	
+    
     private void updateBoard(){
 	pane.remove(grids);
 	for (int i = 0; i < grid.length; i++){
@@ -474,8 +531,8 @@ public class Window extends JFrame implements ActionListener, MouseListener{
 			}
 			else if (board[j][y + i].useSpecialPower() == 4){
 			    //Everything in the 3 by 3 square
-			    for (int z = j - 1; z <= j + 1; z++){
-				for (int u = y + i - 1; u <= y + i + 1; u++){
+			    for (int z = j - 1; z < 9 && z <= j + 1; z++){
+				for (int u = y + i - 1; u < 9 && u <= y + i + 1; u++){
 				    board[z][u] = new RegularCandy();
 				}
 			    }
@@ -531,7 +588,7 @@ public class Window extends JFrame implements ActionListener, MouseListener{
 
     public boolean isLegalSwap(ActionEvent e){
 	int[] a = new int[2], b = previouslySelectedInfo;
-        JButton btn = (JButton)e.getSource();
+	JButton btn = (JButton)e.getSource();
 	for (int i = 0; i < grid.length; i++){
 	    for (int j = 0; j < grid[i].length; j++){
 		if (grid[i][j] == btn){
@@ -557,7 +614,7 @@ public class Window extends JFrame implements ActionListener, MouseListener{
     	
     private void swap(ActionEvent e){
 	int[] a = new int[2], b = previouslySelectedInfo;
-        JButton btn = (JButton)e.getSource();
+	JButton btn = (JButton)e.getSource();
 	for (int i = 0; i < grid.length; i++){
 	    for (int j = 0; j < grid[i].length; j++){
 		if (grid[i][j] == btn){
