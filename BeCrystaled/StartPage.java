@@ -38,7 +38,7 @@ public class StartPage extends JFrame {
 	
 
 	this.setTitle("BeCrystaled");
-	this.setSize(1000,1000);
+	this.setSize(1000,1085);
 	this.setLocation(100,10);
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
