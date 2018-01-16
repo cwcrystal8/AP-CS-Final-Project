@@ -105,7 +105,10 @@ public class HighScoreBoard extends JFrame implements ActionListener{
 	scoreboard.setPreferredSize(new Dimension(700,700));
 
 	
-	name = new JTextField("Enter your name and press enter");
+	name = new JTextField("Type your name and press enter");
+	name.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+	name.setBorder(BorderFactory.createEtchedBorder());
+	name.setPreferredSize(new Dimension(1000,50));
 	name.addActionListener(this);
 
 	pane.add(name);
