@@ -16,13 +16,13 @@ How to play:
 1. Press start to start a game.
 2. Select a candy.
 3. Select another candy in a cell directly next to the originally selected candy to swap (Note that the swap must create a valid combination of at least 3 of the same candies in a row). Combinations of 4 in a row, 5 in a row, or an L or T shape will result in Special Candies, which can be combined with any two consecutive Regular candies of the same type. When combined, each one will be activated to reveal a special power. 
- * Four in a row (vertical): Clears an entire column
- * Four in a row (horizontal): Clears an entire row
- * Five in a row (horizontal or vertical): Clears a row and a column
- * L or T shape: Clears the surrounding 3 by 3 square
+  * Four in a row (vertical): Clears an entire column
+  * Four in a row (horizontal): Clears an entire row
+  * Five in a row (horizontal or vertical): Clears a row and a column
+  * L or T shape: Clears the surrounding 3 by 3 square
 4. Continue until the 50 moves have been exhausted.
 5. If you run out of possible combinations, press restart, and your game will end.
-6. Try to obtain a high score! :) Once you have your final score, press the "High Scores" button to log your high score. TYpe your name, and press "Enter." If you rank in the top ten, your score will appear on the board.
+6. Try to obtain a high score! :) Once you have your final score, press the "High Scores" button to log your high score. Type your name, and press "Enter." If you rank in the top ten, your score will appear on the board.
 
 Good luck!
 
