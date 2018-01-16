@@ -14,6 +14,7 @@ public class Window extends JFrame implements ActionListener, MouseListener{
     private int numOfMoves;
     private JButton noMoreMoves;
     private JButton restart;
+    private JButton highscore;
     private JLabel playerScore;
     private JLabel numMoves;
     private boolean hasSelectedOther;
@@ -168,13 +169,22 @@ public class Window extends JFrame implements ActionListener, MouseListener{
 		
 	JPanel subpane = new JPanel(new GridLayout(1,3,50,50));
 	restart = new JButton("Restart");
+	highscore = new JButton("High Scores");
+
 	restart.addActionListener(this);
-			
-	restart.setFont(new Font("Times New Roman", Font.PLAIN, 40));
+	highscore.addActionListener(this);
+	/*	highscore.addActionListener(new ActionListener() {
+	    public void actionPerformed(ActionEvent e){
+		new HighScoreBoard(score);
+	    }
+	    });*/
+	highscore.setFont(new Font("Times New Roman", Font.PLAIN, 30));
+	restart.setFont(new Font("Times New Roman", Font.PLAIN, 30));
 	numMoves.setFont(new Font("Times New Roman", Font.PLAIN, 40));
 		
 	subpane.add(numMoves);
 	subpane.add(restart);
+	subpane.add(highscore);
 	subpane.add(playerScore);
 	subpane.setBorder(new EmptyBorder(10,10,10,10));
 			
@@ -193,6 +203,9 @@ public class Window extends JFrame implements ActionListener, MouseListener{
 	    numMoves.setText("Game Over!");
 	}else {
 	    JButton button = (JButton)e.getSource();
+	    if (highscore == button){
+		new HighScoreBoard(score);
+	    }
 	    if (restart == button){
 		for (int i = 0; i < board.length; i++){
 		    for (int j = 0; j < board[i].length; j++){

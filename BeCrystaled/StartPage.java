@@ -9,6 +9,7 @@ public class StartPage extends JFrame {
     private JFrame home = new JFrame("Start Page");
     private JButton start = new JButton("Start");
     private JLabel backImage;
+    private JButton highscores = new JButton("High Scores");
 	
     public StartPage() {
 	
@@ -22,6 +23,12 @@ public class StartPage extends JFrame {
 		}
 	    });
 
+	highscores.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		    home.dispose();
+		    new HighScoreBoard();
+		}
+	    });
 
 	backImage = new JLabel();
 	backImage.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -29,9 +36,17 @@ public class StartPage extends JFrame {
 
 	backImage.setIcon(new ImageIcon("StartImage.jpg"));
 
-	start.setPreferredSize(new Dimension(100,50));
+	start.setPreferredSize(new Dimension(200,50));
+	highscores.setPreferredSize(new Dimension(200,50));
+	
 	start.setLocation(450,525);
+
+	start.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+	highscores.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+	
 	backImage.add(start);
+	backImage.add(Box.createRigidArea(new Dimension(1000,30)));
+	backImage.add(highscores);
 	pane.add(backImage);
 	this.pack();
 	this.setVisible(true);
