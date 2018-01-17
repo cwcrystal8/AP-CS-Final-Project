@@ -575,8 +575,14 @@ public class Window extends JFrame implements ActionListener, MouseListener{
 			}
 		    }
 		    else if (board[x - tempIncrement][y].useSpecialPower() == 4){
-			for (int z = x - tempIncrement - 1; z <= x - tempIncrement + 1; z++){
-			    for (int u = y - 1; u <= y + 1; u++){
+			for (int z = x - tempIncrement - 1; z < 9 && z <= x - tempIncrement + 1; z++){
+			    if (z < 0){
+				z = 0;
+			    }
+			    for (int u = y - 1; u < 9 && u <= y + 1; u++){
+				if (u < 0){
+				    u = 0;
+				}
 				board[z][u] = new RegularCandy();
 			    }
 			}
