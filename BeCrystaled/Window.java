@@ -20,6 +20,7 @@ public class Window extends JFrame implements ActionListener, MouseListener{
     private boolean hasSelectedOther;
     private int[] previouslySelectedInfo;
     private static ArrayList<String> types;
+    private Border border;
     private static Color[] colors = {new Color(202,236,246),
 				     new Color(243,201,225),
 				     new Color(239,246,202),
@@ -154,7 +155,9 @@ public class Window extends JFrame implements ActionListener, MouseListener{
 		grids.add(grid[i][j]);//fill in buttons to grid
 	    }		
 	}
-		
+	JButton ad = new JButton();
+	border = ad.getBorder();
+	
 	JLabel intro = new JLabel("BeCrystaled\n", JLabel.CENTER);
 	intro.setFont(new Font("Times New Roman", Font.PLAIN, 60));
 	pane.add(intro, BorderLayout.NORTH);
@@ -742,9 +745,13 @@ public class Window extends JFrame implements ActionListener, MouseListener{
 
 
     public void mouseEntered(MouseEvent e){
+	JButton a = (JButton)e.getSource();
+	a.setBorder(BorderFactory.createLineBorder(Color.magenta));
     }
 	
     public void mouseExited(MouseEvent e){
+	JButton a = (JButton)e.getSource();
+	a.setBorder(border);
     }
 
     public void mouseReleased(MouseEvent e){
