@@ -443,6 +443,8 @@ public class Window extends JFrame implements ActionListener, MouseListener{
 		}
 	    }
 	    else {
+		JButton a = grid[previouslySelectedInfo[0]][previouslySelectedInfo[1]];
+		a.setBorder(border);
 		storeInfo(e);
 		hasSelectedOther = true;
 	    }
@@ -741,17 +743,21 @@ public class Window extends JFrame implements ActionListener, MouseListener{
 		}
 	    }
 	}
+	btn.setBorder(border);
+	btn.setBorder(BorderFactory.createLoweredBevelBorder());
     }
 
 
     public void mouseEntered(MouseEvent e){
 	JButton a = (JButton)e.getSource();
-	a.setBorder(BorderFactory.createLineBorder(Color.magenta));
+	a.setBorder(BorderFactory.createLineBorder(new Color(243,201,225), 5));
     }
 	
     public void mouseExited(MouseEvent e){
 	JButton a = (JButton)e.getSource();
-	a.setBorder(border);
+	if (a != grid[previouslySelectedInfo[0]][previouslySelectedInfo[1]]){
+	    a.setBorder(border);
+	}
     }
 
     public void mouseReleased(MouseEvent e){
