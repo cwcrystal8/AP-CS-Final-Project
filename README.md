@@ -27,6 +27,14 @@ How to play:
 Good luck!
 
 ## Development Log
+## 01/22
+Completed:
+ * Finishing touches (allowed selected candy to be highlighted)
+~~~~~~~
+~~~~~~~
+Notes:
+We were unable to add in a programmed delay because the only way to update a GUI was to call repaint(), and multiple repaint() calls in a quick period of time would be combined into one.
+
 ## 01/15
 Completed:
  * Finished basics of Window.java for the GUI
